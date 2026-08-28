@@ -16,6 +16,7 @@
 * { box-sizing: border-box; }
 html { min-height: 100%; background: var(--paper); }
 body { min-height: 100%; margin: 0; overflow-x: hidden; background: var(--paper); color: var(--ink); font-family: Arial, Helvetica, sans-serif; }
+body:has(.welcome-dialog[open]) { overflow: hidden; }
 button, input { font: inherit; }
 button { color: inherit; }
 button, [role="button"] { -webkit-tap-highlight-color: transparent; }
@@ -27,6 +28,24 @@ button, [role="button"] { -webkit-tap-highlight-color: transparent; }
 .eyebrow { margin: 0 0 3px; color: var(--green); font-size: 11px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
 h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line-height: 1.05; }
 .coordinate-badge { margin-left: auto; padding: 8px 12px; border: 1px solid #bfd5c9; border-radius: 999px; background: #eaf4ee; color: var(--green); font-size: 12px; font-weight: 800; white-space: nowrap; }
+
+.welcome-dialog { width: min(540px, calc(100vw - 28px)); max-height: calc(100svh - 28px); margin: auto; padding: 0; overflow: auto; border: 0; border-radius: 26px; background: var(--surface); color: var(--ink); box-shadow: 0 28px 90px rgba(10, 38, 31, .28); }
+.welcome-dialog::backdrop { background: rgba(15, 42, 35, .62); backdrop-filter: blur(5px); }
+.welcome-content { padding: 26px; }
+.welcome-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.welcome-mark { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: var(--ink); color: white; font-size: 14px; font-weight: 900; letter-spacing: -.04em; box-shadow: 0 8px 20px rgba(21, 59, 51, .18); }
+.welcome-close { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 50%; background: white; color: var(--muted); font-size: 24px; line-height: 1; cursor: pointer; }
+.welcome-eyebrow { margin: 0 0 7px; color: var(--green); font-size: 10px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.welcome-dialog h2 { margin: 0; font-size: clamp(25px, 5vw, 34px); letter-spacing: -.045em; line-height: 1.05; }
+.welcome-description { margin: 13px 0 20px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.welcome-steps { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+.welcome-steps li { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e2e9e4; border-radius: 14px; background: #f8faf7; }
+.welcome-steps li > span { display: grid; place-items: center; width: 31px; height: 31px; flex: 0 0 auto; border-radius: 10px; background: var(--green); color: white; font-size: 11px; font-weight: 900; }
+.welcome-steps li > div { display: grid; gap: 3px; }
+.welcome-steps strong { font-size: 13px; }
+.welcome-steps small { color: var(--muted); font-size: 11px; line-height: 1.4; }
+.welcome-note { display: flex; align-items: center; gap: 8px; margin-top: 13px; padding: 11px 12px; border-radius: 12px; background: var(--green-soft); color: #3f665a; font-size: 11px; line-height: 1.4; }
+.welcome-start { width: 100%; min-height: 50px; margin-top: 16px; padding: 13px 18px; border: 0; border-radius: 14px; background: var(--accent); color: white; font-weight: 900; cursor: pointer; box-shadow: 0 8px 18px rgba(239, 106, 59, .22); }
 
 .workspace {
   display: grid;
@@ -58,7 +77,7 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 .picker-input-row input::placeholder { color: #94a29d; font-weight: 600; }
 .picker-input-row input::-webkit-search-cancel-button { display: none; }
 .clear-field { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; margin: -5px -5px -5px 4px; border: 0; border-radius: 50%; background: transparent; color: #7f918a; font-size: 20px; line-height: 1; cursor: pointer; }
-.clear-field:focus-visible, .delivery-list button:focus-visible, .add-destination-button:focus-visible, .primary-button:focus-visible, .map-actions button:focus-visible { outline: 3px solid rgba(29, 118, 87, .28); outline-offset: 2px; }
+.clear-field:focus-visible, .delivery-list button:focus-visible, .add-destination-button:focus-visible, .primary-button:focus-visible, .map-actions button:focus-visible, .welcome-close:focus-visible, .welcome-start:focus-visible { outline: 3px solid rgba(29, 118, 87, .28); outline-offset: 2px; }
 .dot { display: inline-block; width: 9px; height: 9px; flex: 0 0 auto; border-radius: 50%; }
 .dot-origin { background: var(--green); }
 .dot-destination { background: var(--accent); }
@@ -153,7 +172,8 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 
 @media (hover: hover) {
   .primary-button:hover { background: var(--accent-dark); transform: translateY(-1px); }
-  .clear-field:hover, .delivery-list button:hover, .map-actions button:hover { background: #f0f5f2; }
+  .welcome-start:hover { background: var(--accent-dark); }
+  .clear-field:hover, .delivery-list button:hover, .map-actions button:hover, .welcome-close:hover { background: #f0f5f2; }
   .add-destination-button:not(:disabled):hover { border-color: var(--green); background: #e3f1e9; }
   .location-suggestions button:hover { background: #edf6f1; }
   .house-target:hover .house-point { fill: rgba(29, 118, 87, .72); stroke: white; }
@@ -186,6 +206,14 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
   .eyebrow { margin-bottom: 2px; font-size: 9px; }
   h1 { font-size: clamp(22px, 7vw, 28px); }
   .coordinate-badge { display: none; }
+  .welcome-dialog { width: calc(100vw - 20px); max-height: calc(100svh - 20px); border-radius: 22px; }
+  .welcome-content { padding: 20px; }
+  .welcome-heading { margin-bottom: 16px; }
+  .welcome-mark { width: 44px; height: 44px; border-radius: 14px; }
+  .welcome-dialog h2 { font-size: 26px; }
+  .welcome-description { margin: 11px 0 16px; font-size: 13px; }
+  .welcome-steps li { padding: 10px; }
+  .welcome-start { min-height: 52px; }
 
   .workspace { gap: 12px; }
   .route-panel, .route-summary-card { padding: 15px; border-radius: 18px; box-shadow: 0 10px 28px rgba(21, 59, 51, .06); }
@@ -236,3 +264,4 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+

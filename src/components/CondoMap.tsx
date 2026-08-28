@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -232,17 +233,16 @@ function LocationPicker({
 }
 
 const defaultOrigin = resolveLocation("Portaria")!;
-const defaultDestination = resolveLocation("Casa A18")!;
-const defaultRoute = buildDeliveryRoute(defaultOrigin, [defaultDestination]);
 
 export default function CondoMap() {
   const [originValue, setOriginValue] = useState(defaultOrigin.label);
-  const [destinations, setDestinations] = useState<MapLocation[]>([defaultDestination]);
+  const [destinations, setDestinations] = useState<MapLocation[]>([]);
   const [newDestinationValue, setNewDestinationValue] = useState("");
   const [activeField, setActiveField] = useState<ActiveField>("destination");
-  const [route, setRoute] = useState<DeliveryRouteResult | null>(defaultRoute);
-  const [message, setMessage] = useState("Rota pronta. Adicione outros pontos de entrega.");
-  const [viewBox, setViewBox] = useState<ViewBox>(() => fitPoints(defaultRoute.points));
+  const [route, setRoute] = useState<DeliveryRouteResult | null>(null);
+  const [message, setMessage] = useState("Adicione um ou mais destinos para traçar a melhor rota.");
+  const [viewBox, setViewBox] = useState<ViewBox>(INITIAL_VIEW);
+  const welcomeDialogRef = useRef<HTMLDialogElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const pointers = useRef(new Map<number, Point>());
   const gesture = useRef<
@@ -250,6 +250,11 @@ export default function CondoMap() {
     | { mode: "pinch"; distance: number; view: ViewBox }
     | null
   >(null);
+
+  useEffect(() => {
+    const dialog = welcomeDialogRef.current;
+    if (dialog && !dialog.open) dialog.showModal();
+  }, []);
 
   const selectedLocations = useMemo(
     () => [resolveLocation(originValue), ...destinations],
@@ -278,14 +283,14 @@ export default function CondoMap() {
     }
     if (requestedDestinations.length === 0) {
       setRoute(null);
-      setMessage("Adicione pelo menos um ponto de entrega.");
+      setMessage("Adicione pelo menos um destino.");
       return;
     }
 
     try {
       const nextRoute = buildDeliveryRoute(origin, requestedDestinations);
       setRoute(nextRoute);
-      setMessage(`Ordem de ${nextRoute.destinations.length} ${nextRoute.destinations.length === 1 ? "parada otimizada" : "paradas otimizada"} pela menor distância.`);
+      setMessage(`Ordem de ${nextRoute.destinations.length} ${nextRoute.destinations.length === 1 ? "parada otimizada" : "paradas otimizadas"} pela menor distância.`);
       setViewBox(fitPoints(nextRoute.points));
     } catch (error) {
       setRoute(null);
@@ -296,11 +301,11 @@ export default function CondoMap() {
   const addDestination = (location: MapLocation) => {
     const origin = resolveLocation(originValue);
     if (origin?.id === location.id) {
-      setMessage("O ponto de entrega não pode ser igual ao ponto de partida.");
+      setMessage("O destino não pode ser igual ao ponto de partida.");
       return;
     }
     if (destinations.some((destination) => destination.id === location.id)) {
-      setMessage(`${location.label} já está na lista de entregas.`);
+      setMessage(`${location.label} já está na lista de destinos.`);
       return;
     }
     if (destinations.length >= MAX_DELIVERY_STOPS) {
@@ -312,7 +317,7 @@ export default function CondoMap() {
     setNewDestinationValue("");
     setActiveField("destination");
     setRoute(null);
-    setMessage(`${location.label} adicionada como ponto de entrega.`);
+    setMessage(`${location.label} adicionado como destino.`);
   };
 
   const removeDestination = (location: MapLocation) => {
@@ -429,6 +434,58 @@ export default function CondoMap() {
 
   return (
     <main className="app-shell">
+      <dialog
+        ref={welcomeDialogRef}
+        className="welcome-dialog"
+        aria-labelledby="welcome-title"
+        aria-describedby="welcome-description"
+      >
+        <div className="welcome-content">
+          <div className="welcome-heading">
+            <span className="welcome-mark" aria-hidden="true">JP</span>
+            <button
+              className="welcome-close"
+              type="button"
+              aria-label="Fechar apresentação"
+              onClick={() => welcomeDialogRef.current?.close()}
+            >
+              ×
+            </button>
+          </div>
+
+          <p className="welcome-eyebrow">Mapa do condomínio</p>
+          <h2 id="welcome-title">Bem-vindo ao Duo Jardim Paraíso</h2>
+          <p id="welcome-description" className="welcome-description">
+            Encontre casas, quadras e áreas comuns com facilidade. O mapa pode ser usado por moradores,
+            visitantes, prestadores de serviço e entregadores.
+          </p>
+
+          <ol className="welcome-steps">
+            <li>
+              <span>1</span>
+              <div><strong>Diga onde você está</strong><small>Escolha a Portaria, uma casa, quadra ou área comum.</small></div>
+            </li>
+            <li>
+              <span>2</span>
+              <div><strong>Adicione seus destinos</strong><small>Inclua um ou vários lugares que deseja visitar.</small></div>
+            </li>
+            <li>
+              <span>3</span>
+              <div><strong>Siga a melhor rota</strong><small>O sistema organiza o caminho pelas ruas internas do condomínio.</small></div>
+            </li>
+          </ol>
+
+          <div className="welcome-note">
+            <i className="dot dot-origin" aria-hidden="true" />
+            <span>Sem GPS: você informa o ponto de partida diretamente no mapa.</span>
+          </div>
+
+          <button className="welcome-start" type="button" onClick={() => welcomeDialogRef.current?.close()}>
+            Entendi, começar
+          </button>
+        </div>
+      </dialog>
+
       <header className="topbar">
         <div className="brand-mark" aria-hidden="true">JP</div>
         <div className="brand-copy">
@@ -469,13 +526,13 @@ export default function CondoMap() {
               <div className="delivery-builder-heading">
                 <div>
                   <i className="dot dot-destination" />
-                  <strong>Pontos de entrega</strong>
+                  <strong>Destinos</strong>
                 </div>
                 <span>{destinations.length}/{MAX_DELIVERY_STOPS}</span>
               </div>
 
               {destinations.length > 0 ? (
-                <ol className="delivery-list" aria-label="Pontos de entrega adicionados">
+                <ol className="delivery-list" aria-label="Destinos adicionados">
                   {(route?.destinations ?? destinations).map((destination, index) => (
                     <li key={destination.id}>
                       <span className="delivery-number">{index + 1}</span>
@@ -488,7 +545,7 @@ export default function CondoMap() {
                   ))}
                 </ol>
               ) : (
-                <p className="empty-deliveries">Nenhum ponto adicionado.</p>
+                <p className="empty-deliveries">Nenhum destino adicionado.</p>
               )}
 
               <LocationPicker
@@ -513,12 +570,12 @@ export default function CondoMap() {
           </div>
 
           <button className="primary-button" type="button" onClick={() => calculateRoute(originValue)}>
-            Otimizar rota de entregas
+            Traçar melhor rota
           </button>
 
           <div className="hint-card">
             <strong>Também funciona pelo mapa</strong>
-            <p>Ative “Adicionar ponto” e toque nas casas que deseja incluir na entrega.</p>
+            <p>Ative “Adicionar ponto” e toque nas casas que deseja visitar.</p>
           </div>
 
           <p className="status-message" aria-live="polite">{message}</p>
@@ -542,7 +599,7 @@ export default function CondoMap() {
           <div className="map-viewport">
             <div className="map-mode-pill" aria-live="polite">
               <i className={`dot dot-${activeField}`} />
-              Toque numa casa para {activeField === "origin" ? "definir a partida" : "adicionar uma entrega"}
+              Toque numa casa para {activeField === "origin" ? "definir a partida" : "adicionar um destino"}
             </div>
 
             <svg
@@ -578,7 +635,7 @@ export default function CondoMap() {
                       className="house-target"
                       tabIndex={0}
                       role="button"
-                      aria-label={`${house.label}. ${activeField === "origin" ? "Definir como partida" : "Adicionar como ponto de entrega"}`}
+                      aria-label={`${house.label}. ${activeField === "origin" ? "Definir como partida" : "Adicionar como destino"}`}
                       onClick={() => chooseLocation(house)}
                       onKeyDown={(event) => handleHouseKey(event, house)}
                     >
@@ -620,7 +677,7 @@ export default function CondoMap() {
 
           <footer className="map-legend">
             <span><i className="legend-dot legend-origin" /> Partida</span>
-            <span><i className="legend-dot legend-destination" /> Entregas numeradas</span>
+            <span><i className="legend-dot legend-destination" /> Destinos numerados</span>
             <span><i className="legend-line" /> Melhor rota</span>
             <small>Arraste para mover • pinça ou +/− para ampliar</small>
           </footer>
@@ -631,7 +688,7 @@ export default function CondoMap() {
             <div className="summary-heading">
               <span className="step-number">2</span>
               <div>
-                <h2>Rota de entregas</h2>
+                <h2>Rota calculada</h2>
                 <p>{route.origin.label} + {route.destinations.length} {route.destinations.length === 1 ? "parada" : "paradas"}</p>
               </div>
             </div>
@@ -652,7 +709,7 @@ export default function CondoMap() {
                     <summary>
                       <span className="delivery-route-marker">{leg.stopNumber}</span>
                       <div>
-                        <small>Entrega {leg.stopNumber}</small>
+                        <small>Destino {leg.stopNumber}</small>
                         <strong>{leg.destination.label}</strong>
                       </div>
                       <span className="leg-distance">{Math.round(leg.coordinateDistance)} un.</span>
@@ -679,3 +736,4 @@ export default function CondoMap() {
     </main>
   );
 }
+
