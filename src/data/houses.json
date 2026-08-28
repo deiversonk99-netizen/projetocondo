@@ -1,0 +1,2530 @@
+[
+  {
+    "id": "A1",
+    "label": "Casa A1",
+    "quadra": "A",
+    "numero": 1,
+    "x": 965.91,
+    "y": 219.7
+  },
+  {
+    "id": "A2",
+    "label": "Casa A2",
+    "quadra": "A",
+    "numero": 2,
+    "x": 965.79,
+    "y": 239.38
+  },
+  {
+    "id": "A3",
+    "label": "Casa A3",
+    "quadra": "A",
+    "numero": 3,
+    "x": 965.67,
+    "y": 258.94
+  },
+  {
+    "id": "A4",
+    "label": "Casa A4",
+    "quadra": "A",
+    "numero": 4,
+    "x": 965.67,
+    "y": 278.5
+  },
+  {
+    "id": "A5",
+    "label": "Casa A5",
+    "quadra": "A",
+    "numero": 5,
+    "x": 965.67,
+    "y": 298.06
+  },
+  {
+    "id": "A6",
+    "label": "Casa A6",
+    "quadra": "A",
+    "numero": 6,
+    "x": 965.67,
+    "y": 317.62
+  },
+  {
+    "id": "A7",
+    "label": "Casa A7",
+    "quadra": "A",
+    "numero": 7,
+    "x": 965.67,
+    "y": 337.18
+  },
+  {
+    "id": "A8",
+    "label": "Casa A8",
+    "quadra": "A",
+    "numero": 8,
+    "x": 965.67,
+    "y": 356.74
+  },
+  {
+    "id": "A9",
+    "label": "Casa A9",
+    "quadra": "A",
+    "numero": 9,
+    "x": 965.67,
+    "y": 376.3
+  },
+  {
+    "id": "A10",
+    "label": "Casa A10",
+    "quadra": "A",
+    "numero": 10,
+    "x": 966.22,
+    "y": 395.86
+  },
+  {
+    "id": "A11",
+    "label": "Casa A11",
+    "quadra": "A",
+    "numero": 11,
+    "x": 966.45,
+    "y": 415.42
+  },
+  {
+    "id": "A12",
+    "label": "Casa A12",
+    "quadra": "A",
+    "numero": 12,
+    "x": 966.22,
+    "y": 434.98
+  },
+  {
+    "id": "A13",
+    "label": "Casa A13",
+    "quadra": "A",
+    "numero": 13,
+    "x": 966.22,
+    "y": 454.54
+  },
+  {
+    "id": "A14",
+    "label": "Casa A14",
+    "quadra": "A",
+    "numero": 14,
+    "x": 966.22,
+    "y": 474.1
+  },
+  {
+    "id": "A15",
+    "label": "Casa A15",
+    "quadra": "A",
+    "numero": 15,
+    "x": 966.22,
+    "y": 493.66
+  },
+  {
+    "id": "A16",
+    "label": "Casa A16",
+    "quadra": "A",
+    "numero": 16,
+    "x": 966.22,
+    "y": 513.22
+  },
+  {
+    "id": "A17",
+    "label": "Casa A17",
+    "quadra": "A",
+    "numero": 17,
+    "x": 966.22,
+    "y": 532.78
+  },
+  {
+    "id": "A18",
+    "label": "Casa A18",
+    "quadra": "A",
+    "numero": 18,
+    "x": 966.22,
+    "y": 552.34
+  },
+  {
+    "id": "B1",
+    "label": "Casa B1",
+    "quadra": "B",
+    "numero": 1,
+    "x": 898.35,
+    "y": 219.82
+  },
+  {
+    "id": "B2",
+    "label": "Casa B2",
+    "quadra": "B",
+    "numero": 2,
+    "x": 898.11,
+    "y": 239.38
+  },
+  {
+    "id": "B3",
+    "label": "Casa B3",
+    "quadra": "B",
+    "numero": 3,
+    "x": 898.11,
+    "y": 258.94
+  },
+  {
+    "id": "B4",
+    "label": "Casa B4",
+    "quadra": "B",
+    "numero": 4,
+    "x": 898.11,
+    "y": 278.5
+  },
+  {
+    "id": "B5",
+    "label": "Casa B5",
+    "quadra": "B",
+    "numero": 5,
+    "x": 898.11,
+    "y": 298.06
+  },
+  {
+    "id": "B6",
+    "label": "Casa B6",
+    "quadra": "B",
+    "numero": 6,
+    "x": 898.11,
+    "y": 317.62
+  },
+  {
+    "id": "B7",
+    "label": "Casa B7",
+    "quadra": "B",
+    "numero": 7,
+    "x": 898.11,
+    "y": 337.18
+  },
+  {
+    "id": "B8",
+    "label": "Casa B8",
+    "quadra": "B",
+    "numero": 8,
+    "x": 898.11,
+    "y": 356.74
+  },
+  {
+    "id": "B9",
+    "label": "Casa B9",
+    "quadra": "B",
+    "numero": 9,
+    "x": 898.11,
+    "y": 376.3
+  },
+  {
+    "id": "B10",
+    "label": "Casa B10",
+    "quadra": "B",
+    "numero": 10,
+    "x": 898.53,
+    "y": 395.86
+  },
+  {
+    "id": "B11",
+    "label": "Casa B11",
+    "quadra": "B",
+    "numero": 11,
+    "x": 898.77,
+    "y": 415.42
+  },
+  {
+    "id": "B12",
+    "label": "Casa B12",
+    "quadra": "B",
+    "numero": 12,
+    "x": 898.53,
+    "y": 434.98
+  },
+  {
+    "id": "B13",
+    "label": "Casa B13",
+    "quadra": "B",
+    "numero": 13,
+    "x": 898.53,
+    "y": 454.54
+  },
+  {
+    "id": "B14",
+    "label": "Casa B14",
+    "quadra": "B",
+    "numero": 14,
+    "x": 898.53,
+    "y": 474.1
+  },
+  {
+    "id": "B15",
+    "label": "Casa B15",
+    "quadra": "B",
+    "numero": 15,
+    "x": 898.53,
+    "y": 493.66
+  },
+  {
+    "id": "B16",
+    "label": "Casa B16",
+    "quadra": "B",
+    "numero": 16,
+    "x": 898.53,
+    "y": 513.22
+  },
+  {
+    "id": "B17",
+    "label": "Casa B17",
+    "quadra": "B",
+    "numero": 17,
+    "x": 898.53,
+    "y": 532.78
+  },
+  {
+    "id": "B18",
+    "label": "Casa B18",
+    "quadra": "B",
+    "numero": 18,
+    "x": 898.53,
+    "y": 552.34
+  },
+  {
+    "id": "B19",
+    "label": "Casa B19",
+    "quadra": "B",
+    "numero": 19,
+    "x": 859.89,
+    "y": 552.34
+  },
+  {
+    "id": "B20",
+    "label": "Casa B20",
+    "quadra": "B",
+    "numero": 20,
+    "x": 859.89,
+    "y": 532.78
+  },
+  {
+    "id": "B21",
+    "label": "Casa B21",
+    "quadra": "B",
+    "numero": 21,
+    "x": 860.13,
+    "y": 513.22
+  },
+  {
+    "id": "B22",
+    "label": "Casa B22",
+    "quadra": "B",
+    "numero": 22,
+    "x": 859.89,
+    "y": 493.66
+  },
+  {
+    "id": "B23",
+    "label": "Casa B23",
+    "quadra": "B",
+    "numero": 23,
+    "x": 859.89,
+    "y": 474.1
+  },
+  {
+    "id": "B24",
+    "label": "Casa B24",
+    "quadra": "B",
+    "numero": 24,
+    "x": 859.89,
+    "y": 454.54
+  },
+  {
+    "id": "B25",
+    "label": "Casa B25",
+    "quadra": "B",
+    "numero": 25,
+    "x": 859.89,
+    "y": 434.98
+  },
+  {
+    "id": "B26",
+    "label": "Casa B26",
+    "quadra": "B",
+    "numero": 26,
+    "x": 859.89,
+    "y": 415.42
+  },
+  {
+    "id": "B27",
+    "label": "Casa B27",
+    "quadra": "B",
+    "numero": 27,
+    "x": 859.89,
+    "y": 395.86
+  },
+  {
+    "id": "B28",
+    "label": "Casa B28",
+    "quadra": "B",
+    "numero": 28,
+    "x": 859.89,
+    "y": 376.3
+  },
+  {
+    "id": "B29",
+    "label": "Casa B29",
+    "quadra": "B",
+    "numero": 29,
+    "x": 859.89,
+    "y": 356.74
+  },
+  {
+    "id": "B30",
+    "label": "Casa B30",
+    "quadra": "B",
+    "numero": 30,
+    "x": 859.89,
+    "y": 337.18
+  },
+  {
+    "id": "B31",
+    "label": "Casa B31",
+    "quadra": "B",
+    "numero": 31,
+    "x": 860.13,
+    "y": 317.62
+  },
+  {
+    "id": "B32",
+    "label": "Casa B32",
+    "quadra": "B",
+    "numero": 32,
+    "x": 859.89,
+    "y": 298.06
+  },
+  {
+    "id": "B33",
+    "label": "Casa B33",
+    "quadra": "B",
+    "numero": 33,
+    "x": 859.89,
+    "y": 278.5
+  },
+  {
+    "id": "B34",
+    "label": "Casa B34",
+    "quadra": "B",
+    "numero": 34,
+    "x": 859.89,
+    "y": 258.94
+  },
+  {
+    "id": "B35",
+    "label": "Casa B35",
+    "quadra": "B",
+    "numero": 35,
+    "x": 859.89,
+    "y": 239.38
+  },
+  {
+    "id": "B36",
+    "label": "Casa B36",
+    "quadra": "B",
+    "numero": 36,
+    "x": 859.89,
+    "y": 219.82
+  },
+  {
+    "id": "C1",
+    "label": "Casa C1",
+    "quadra": "C",
+    "numero": 1,
+    "x": 795.75,
+    "y": 218.86
+  },
+  {
+    "id": "C2",
+    "label": "Casa C2",
+    "quadra": "C",
+    "numero": 2,
+    "x": 795.51,
+    "y": 238.42
+  },
+  {
+    "id": "C3",
+    "label": "Casa C3",
+    "quadra": "C",
+    "numero": 3,
+    "x": 795.51,
+    "y": 257.98
+  },
+  {
+    "id": "C4",
+    "label": "Casa C4",
+    "quadra": "C",
+    "numero": 4,
+    "x": 795.51,
+    "y": 277.54
+  },
+  {
+    "id": "C5",
+    "label": "Casa C5",
+    "quadra": "C",
+    "numero": 5,
+    "x": 795.51,
+    "y": 297.1
+  },
+  {
+    "id": "C6",
+    "label": "Casa C6",
+    "quadra": "C",
+    "numero": 6,
+    "x": 795.51,
+    "y": 316.66
+  },
+  {
+    "id": "C7",
+    "label": "Casa C7",
+    "quadra": "C",
+    "numero": 7,
+    "x": 795.51,
+    "y": 336.22
+  },
+  {
+    "id": "C8",
+    "label": "Casa C8",
+    "quadra": "C",
+    "numero": 8,
+    "x": 795.51,
+    "y": 355.78
+  },
+  {
+    "id": "C9",
+    "label": "Casa C9",
+    "quadra": "C",
+    "numero": 9,
+    "x": 795.51,
+    "y": 375.34
+  },
+  {
+    "id": "C10",
+    "label": "Casa C10",
+    "quadra": "C",
+    "numero": 10,
+    "x": 795.94,
+    "y": 394.9
+  },
+  {
+    "id": "C11",
+    "label": "Casa C11",
+    "quadra": "C",
+    "numero": 11,
+    "x": 796.18,
+    "y": 414.46
+  },
+  {
+    "id": "C12",
+    "label": "Casa C12",
+    "quadra": "C",
+    "numero": 12,
+    "x": 795.94,
+    "y": 434.02
+  },
+  {
+    "id": "C13",
+    "label": "Casa C13",
+    "quadra": "C",
+    "numero": 13,
+    "x": 795.94,
+    "y": 453.58
+  },
+  {
+    "id": "C14",
+    "label": "Casa C14",
+    "quadra": "C",
+    "numero": 14,
+    "x": 795.94,
+    "y": 473.14
+  },
+  {
+    "id": "C15",
+    "label": "Casa C15",
+    "quadra": "C",
+    "numero": 15,
+    "x": 795.94,
+    "y": 492.7
+  },
+  {
+    "id": "C16",
+    "label": "Casa C16",
+    "quadra": "C",
+    "numero": 16,
+    "x": 795.94,
+    "y": 512.26
+  },
+  {
+    "id": "C17",
+    "label": "Casa C17",
+    "quadra": "C",
+    "numero": 17,
+    "x": 795.94,
+    "y": 531.82
+  },
+  {
+    "id": "C18",
+    "label": "Casa C18",
+    "quadra": "C",
+    "numero": 18,
+    "x": 795.94,
+    "y": 551.38
+  },
+  {
+    "id": "C19",
+    "label": "Casa C19",
+    "quadra": "C",
+    "numero": 19,
+    "x": 752.62,
+    "y": 551.38
+  },
+  {
+    "id": "C20",
+    "label": "Casa C20",
+    "quadra": "C",
+    "numero": 20,
+    "x": 752.62,
+    "y": 531.82
+  },
+  {
+    "id": "C21",
+    "label": "Casa C21",
+    "quadra": "C",
+    "numero": 21,
+    "x": 752.86,
+    "y": 512.26
+  },
+  {
+    "id": "C22",
+    "label": "Casa C22",
+    "quadra": "C",
+    "numero": 22,
+    "x": 752.74,
+    "y": 492.7
+  },
+  {
+    "id": "C23",
+    "label": "Casa C23",
+    "quadra": "C",
+    "numero": 23,
+    "x": 752.62,
+    "y": 473.14
+  },
+  {
+    "id": "C24",
+    "label": "Casa C24",
+    "quadra": "C",
+    "numero": 24,
+    "x": 752.62,
+    "y": 453.58
+  },
+  {
+    "id": "C25",
+    "label": "Casa C25",
+    "quadra": "C",
+    "numero": 25,
+    "x": 752.62,
+    "y": 434.02
+  },
+  {
+    "id": "C26",
+    "label": "Casa C26",
+    "quadra": "C",
+    "numero": 26,
+    "x": 752.62,
+    "y": 414.46
+  },
+  {
+    "id": "C27",
+    "label": "Casa C27",
+    "quadra": "C",
+    "numero": 27,
+    "x": 752.62,
+    "y": 394.9
+  },
+  {
+    "id": "C28",
+    "label": "Casa C28",
+    "quadra": "C",
+    "numero": 28,
+    "x": 752.62,
+    "y": 375.34
+  },
+  {
+    "id": "C29",
+    "label": "Casa C29",
+    "quadra": "C",
+    "numero": 29,
+    "x": 752.62,
+    "y": 355.78
+  },
+  {
+    "id": "C30",
+    "label": "Casa C30",
+    "quadra": "C",
+    "numero": 30,
+    "x": 752.62,
+    "y": 336.22
+  },
+  {
+    "id": "C31",
+    "label": "Casa C31",
+    "quadra": "C",
+    "numero": 31,
+    "x": 752.86,
+    "y": 316.66
+  },
+  {
+    "id": "C32",
+    "label": "Casa C32",
+    "quadra": "C",
+    "numero": 32,
+    "x": 752.74,
+    "y": 297.1
+  },
+  {
+    "id": "C33",
+    "label": "Casa C33",
+    "quadra": "C",
+    "numero": 33,
+    "x": 752.62,
+    "y": 277.54
+  },
+  {
+    "id": "C34",
+    "label": "Casa C34",
+    "quadra": "C",
+    "numero": 34,
+    "x": 752.62,
+    "y": 257.98
+  },
+  {
+    "id": "C35",
+    "label": "Casa C35",
+    "quadra": "C",
+    "numero": 35,
+    "x": 752.62,
+    "y": 238.42
+  },
+  {
+    "id": "C36",
+    "label": "Casa C36",
+    "quadra": "C",
+    "numero": 36,
+    "x": 752.62,
+    "y": 218.86
+  },
+  {
+    "id": "D1",
+    "label": "Casa D1",
+    "quadra": "D",
+    "numero": 1,
+    "x": 689.55,
+    "y": 218.86
+  },
+  {
+    "id": "D2",
+    "label": "Casa D2",
+    "quadra": "D",
+    "numero": 2,
+    "x": 689.31,
+    "y": 238.42
+  },
+  {
+    "id": "D3",
+    "label": "Casa D3",
+    "quadra": "D",
+    "numero": 3,
+    "x": 689.31,
+    "y": 257.98
+  },
+  {
+    "id": "D4",
+    "label": "Casa D4",
+    "quadra": "D",
+    "numero": 4,
+    "x": 689.31,
+    "y": 277.54
+  },
+  {
+    "id": "D5",
+    "label": "Casa D5",
+    "quadra": "D",
+    "numero": 5,
+    "x": 689.31,
+    "y": 297.1
+  },
+  {
+    "id": "D6",
+    "label": "Casa D6",
+    "quadra": "D",
+    "numero": 6,
+    "x": 689.31,
+    "y": 316.66
+  },
+  {
+    "id": "D7",
+    "label": "Casa D7",
+    "quadra": "D",
+    "numero": 7,
+    "x": 689.31,
+    "y": 336.22
+  },
+  {
+    "id": "D8",
+    "label": "Casa D8",
+    "quadra": "D",
+    "numero": 8,
+    "x": 689.31,
+    "y": 355.78
+  },
+  {
+    "id": "D9",
+    "label": "Casa D9",
+    "quadra": "D",
+    "numero": 9,
+    "x": 689.31,
+    "y": 375.34
+  },
+  {
+    "id": "D10",
+    "label": "Casa D10",
+    "quadra": "D",
+    "numero": 10,
+    "x": 689.74,
+    "y": 394.9
+  },
+  {
+    "id": "D11",
+    "label": "Casa D11",
+    "quadra": "D",
+    "numero": 11,
+    "x": 689.98,
+    "y": 414.46
+  },
+  {
+    "id": "D12",
+    "label": "Casa D12",
+    "quadra": "D",
+    "numero": 12,
+    "x": 689.74,
+    "y": 434.02
+  },
+  {
+    "id": "D13",
+    "label": "Casa D13",
+    "quadra": "D",
+    "numero": 13,
+    "x": 689.74,
+    "y": 453.58
+  },
+  {
+    "id": "D14",
+    "label": "Casa D14",
+    "quadra": "D",
+    "numero": 14,
+    "x": 689.74,
+    "y": 473.14
+  },
+  {
+    "id": "D15",
+    "label": "Casa D15",
+    "quadra": "D",
+    "numero": 15,
+    "x": 689.74,
+    "y": 492.7
+  },
+  {
+    "id": "D16",
+    "label": "Casa D16",
+    "quadra": "D",
+    "numero": 16,
+    "x": 689.74,
+    "y": 512.26
+  },
+  {
+    "id": "D17",
+    "label": "Casa D17",
+    "quadra": "D",
+    "numero": 17,
+    "x": 689.74,
+    "y": 531.82
+  },
+  {
+    "id": "D18",
+    "label": "Casa D18",
+    "quadra": "D",
+    "numero": 18,
+    "x": 689.74,
+    "y": 551.38
+  },
+  {
+    "id": "D19",
+    "label": "Casa D19",
+    "quadra": "D",
+    "numero": 19,
+    "x": 646.42,
+    "y": 551.38
+  },
+  {
+    "id": "D20",
+    "label": "Casa D20",
+    "quadra": "D",
+    "numero": 20,
+    "x": 646.42,
+    "y": 531.82
+  },
+  {
+    "id": "D21",
+    "label": "Casa D21",
+    "quadra": "D",
+    "numero": 21,
+    "x": 646.66,
+    "y": 512.26
+  },
+  {
+    "id": "D22",
+    "label": "Casa D22",
+    "quadra": "D",
+    "numero": 22,
+    "x": 646.42,
+    "y": 492.7
+  },
+  {
+    "id": "D23",
+    "label": "Casa D23",
+    "quadra": "D",
+    "numero": 23,
+    "x": 646.42,
+    "y": 473.14
+  },
+  {
+    "id": "D24",
+    "label": "Casa D24",
+    "quadra": "D",
+    "numero": 24,
+    "x": 646.42,
+    "y": 453.58
+  },
+  {
+    "id": "D25",
+    "label": "Casa D25",
+    "quadra": "D",
+    "numero": 25,
+    "x": 646.42,
+    "y": 434.02
+  },
+  {
+    "id": "D26",
+    "label": "Casa D26",
+    "quadra": "D",
+    "numero": 26,
+    "x": 646.42,
+    "y": 414.46
+  },
+  {
+    "id": "D27",
+    "label": "Casa D27",
+    "quadra": "D",
+    "numero": 27,
+    "x": 646.42,
+    "y": 394.9
+  },
+  {
+    "id": "D28",
+    "label": "Casa D28",
+    "quadra": "D",
+    "numero": 28,
+    "x": 646.42,
+    "y": 375.34
+  },
+  {
+    "id": "D29",
+    "label": "Casa D29",
+    "quadra": "D",
+    "numero": 29,
+    "x": 646.42,
+    "y": 355.78
+  },
+  {
+    "id": "D30",
+    "label": "Casa D30",
+    "quadra": "D",
+    "numero": 30,
+    "x": 646.42,
+    "y": 336.22
+  },
+  {
+    "id": "D31",
+    "label": "Casa D31",
+    "quadra": "D",
+    "numero": 31,
+    "x": 646.66,
+    "y": 316.66
+  },
+  {
+    "id": "D32",
+    "label": "Casa D32",
+    "quadra": "D",
+    "numero": 32,
+    "x": 646.42,
+    "y": 297.1
+  },
+  {
+    "id": "D33",
+    "label": "Casa D33",
+    "quadra": "D",
+    "numero": 33,
+    "x": 646.42,
+    "y": 277.54
+  },
+  {
+    "id": "D34",
+    "label": "Casa D34",
+    "quadra": "D",
+    "numero": 34,
+    "x": 646.42,
+    "y": 257.98
+  },
+  {
+    "id": "D35",
+    "label": "Casa D35",
+    "quadra": "D",
+    "numero": 35,
+    "x": 646.42,
+    "y": 238.42
+  },
+  {
+    "id": "D36",
+    "label": "Casa D36",
+    "quadra": "D",
+    "numero": 36,
+    "x": 646.42,
+    "y": 218.86
+  },
+  {
+    "id": "E1",
+    "label": "Casa E1",
+    "quadra": "E",
+    "numero": 1,
+    "x": 583.23,
+    "y": 218.86
+  },
+  {
+    "id": "E2",
+    "label": "Casa E2",
+    "quadra": "E",
+    "numero": 2,
+    "x": 582.99,
+    "y": 238.42
+  },
+  {
+    "id": "E3",
+    "label": "Casa E3",
+    "quadra": "E",
+    "numero": 3,
+    "x": 582.99,
+    "y": 257.98
+  },
+  {
+    "id": "E4",
+    "label": "Casa E4",
+    "quadra": "E",
+    "numero": 4,
+    "x": 582.99,
+    "y": 277.54
+  },
+  {
+    "id": "E5",
+    "label": "Casa E5",
+    "quadra": "E",
+    "numero": 5,
+    "x": 582.99,
+    "y": 297.1
+  },
+  {
+    "id": "E6",
+    "label": "Casa E6",
+    "quadra": "E",
+    "numero": 6,
+    "x": 582.99,
+    "y": 316.66
+  },
+  {
+    "id": "E7",
+    "label": "Casa E7",
+    "quadra": "E",
+    "numero": 7,
+    "x": 582.99,
+    "y": 336.22
+  },
+  {
+    "id": "E8",
+    "label": "Casa E8",
+    "quadra": "E",
+    "numero": 8,
+    "x": 582.99,
+    "y": 355.78
+  },
+  {
+    "id": "E9",
+    "label": "Casa E9",
+    "quadra": "E",
+    "numero": 9,
+    "x": 582.99,
+    "y": 375.34
+  },
+  {
+    "id": "E10",
+    "label": "Casa E10",
+    "quadra": "E",
+    "numero": 10,
+    "x": 583.41,
+    "y": 394.9
+  },
+  {
+    "id": "E11",
+    "label": "Casa E11",
+    "quadra": "E",
+    "numero": 11,
+    "x": 583.65,
+    "y": 414.46
+  },
+  {
+    "id": "E12",
+    "label": "Casa E12",
+    "quadra": "E",
+    "numero": 12,
+    "x": 583.53,
+    "y": 434.02
+  },
+  {
+    "id": "E13",
+    "label": "Casa E13",
+    "quadra": "E",
+    "numero": 13,
+    "x": 583.41,
+    "y": 453.58
+  },
+  {
+    "id": "E14",
+    "label": "Casa E14",
+    "quadra": "E",
+    "numero": 14,
+    "x": 583.41,
+    "y": 473.14
+  },
+  {
+    "id": "E15",
+    "label": "Casa E15",
+    "quadra": "E",
+    "numero": 15,
+    "x": 583.41,
+    "y": 492.7
+  },
+  {
+    "id": "E16",
+    "label": "Casa E16",
+    "quadra": "E",
+    "numero": 16,
+    "x": 583.41,
+    "y": 512.26
+  },
+  {
+    "id": "E17",
+    "label": "Casa E17",
+    "quadra": "E",
+    "numero": 17,
+    "x": 583.41,
+    "y": 531.82
+  },
+  {
+    "id": "E18",
+    "label": "Casa E18",
+    "quadra": "E",
+    "numero": 18,
+    "x": 583.41,
+    "y": 551.38
+  },
+  {
+    "id": "E19",
+    "label": "Casa E19",
+    "quadra": "E",
+    "numero": 19,
+    "x": 540.21,
+    "y": 551.86
+  },
+  {
+    "id": "E20",
+    "label": "Casa E20",
+    "quadra": "E",
+    "numero": 20,
+    "x": 540.21,
+    "y": 532.3
+  },
+  {
+    "id": "E21",
+    "label": "Casa E21",
+    "quadra": "E",
+    "numero": 21,
+    "x": 540.33,
+    "y": 512.74
+  },
+  {
+    "id": "E22",
+    "label": "Casa E22",
+    "quadra": "E",
+    "numero": 22,
+    "x": 540.21,
+    "y": 493.18
+  },
+  {
+    "id": "E23",
+    "label": "Casa E23",
+    "quadra": "E",
+    "numero": 23,
+    "x": 540.21,
+    "y": 473.62
+  },
+  {
+    "id": "E24",
+    "label": "Casa E24",
+    "quadra": "E",
+    "numero": 24,
+    "x": 540.21,
+    "y": 454.06
+  },
+  {
+    "id": "E25",
+    "label": "Casa E25",
+    "quadra": "E",
+    "numero": 25,
+    "x": 540.09,
+    "y": 434.5
+  },
+  {
+    "id": "E26",
+    "label": "Casa E26",
+    "quadra": "E",
+    "numero": 26,
+    "x": 540.21,
+    "y": 414.94
+  },
+  {
+    "id": "E27",
+    "label": "Casa E27",
+    "quadra": "E",
+    "numero": 27,
+    "x": 540.21,
+    "y": 395.38
+  },
+  {
+    "id": "E28",
+    "label": "Casa E28",
+    "quadra": "E",
+    "numero": 28,
+    "x": 540.21,
+    "y": 375.82
+  },
+  {
+    "id": "E29",
+    "label": "Casa E29",
+    "quadra": "E",
+    "numero": 29,
+    "x": 540.21,
+    "y": 356.26
+  },
+  {
+    "id": "E30",
+    "label": "Casa E30",
+    "quadra": "E",
+    "numero": 30,
+    "x": 540.21,
+    "y": 336.7
+  },
+  {
+    "id": "E31",
+    "label": "Casa E31",
+    "quadra": "E",
+    "numero": 31,
+    "x": 540.33,
+    "y": 317.14
+  },
+  {
+    "id": "E32",
+    "label": "Casa E32",
+    "quadra": "E",
+    "numero": 32,
+    "x": 540.21,
+    "y": 297.58
+  },
+  {
+    "id": "E33",
+    "label": "Casa E33",
+    "quadra": "E",
+    "numero": 33,
+    "x": 540.21,
+    "y": 278.02
+  },
+  {
+    "id": "E34",
+    "label": "Casa E34",
+    "quadra": "E",
+    "numero": 34,
+    "x": 540.21,
+    "y": 258.46
+  },
+  {
+    "id": "E35",
+    "label": "Casa E35",
+    "quadra": "E",
+    "numero": 35,
+    "x": 540.09,
+    "y": 238.9
+  },
+  {
+    "id": "E36",
+    "label": "Casa E36",
+    "quadra": "E",
+    "numero": 36,
+    "x": 540.21,
+    "y": 219.34
+  },
+  {
+    "id": "F1",
+    "label": "Casa F1",
+    "quadra": "F",
+    "numero": 1,
+    "x": 476.73,
+    "y": 260.5
+  },
+  {
+    "id": "F2",
+    "label": "Casa F2",
+    "quadra": "F",
+    "numero": 2,
+    "x": 476.37,
+    "y": 280.06
+  },
+  {
+    "id": "F3",
+    "label": "Casa F3",
+    "quadra": "F",
+    "numero": 3,
+    "x": 476.37,
+    "y": 299.62
+  },
+  {
+    "id": "F4",
+    "label": "Casa F4",
+    "quadra": "F",
+    "numero": 4,
+    "x": 476.37,
+    "y": 319.18
+  },
+  {
+    "id": "F5",
+    "label": "Casa F5",
+    "quadra": "F",
+    "numero": 5,
+    "x": 476.37,
+    "y": 338.74
+  },
+  {
+    "id": "F6",
+    "label": "Casa F6",
+    "quadra": "F",
+    "numero": 6,
+    "x": 476.73,
+    "y": 355.78
+  },
+  {
+    "id": "F7",
+    "label": "Casa F7",
+    "quadra": "F",
+    "numero": 7,
+    "x": 476.73,
+    "y": 375.34
+  },
+  {
+    "id": "F8",
+    "label": "Casa F8",
+    "quadra": "F",
+    "numero": 8,
+    "x": 476.73,
+    "y": 394.9
+  },
+  {
+    "id": "F9",
+    "label": "Casa F9",
+    "quadra": "F",
+    "numero": 9,
+    "x": 476.73,
+    "y": 414.46
+  },
+  {
+    "id": "F10",
+    "label": "Casa F10",
+    "quadra": "F",
+    "numero": 10,
+    "x": 477.2,
+    "y": 434.02
+  },
+  {
+    "id": "F11",
+    "label": "Casa F11",
+    "quadra": "F",
+    "numero": 11,
+    "x": 477.44,
+    "y": 453.58
+  },
+  {
+    "id": "F12",
+    "label": "Casa F12",
+    "quadra": "F",
+    "numero": 12,
+    "x": 477.2,
+    "y": 473.14
+  },
+  {
+    "id": "F13",
+    "label": "Casa F13",
+    "quadra": "F",
+    "numero": 13,
+    "x": 477.2,
+    "y": 492.7
+  },
+  {
+    "id": "F14",
+    "label": "Casa F14",
+    "quadra": "F",
+    "numero": 14,
+    "x": 477.2,
+    "y": 512.26
+  },
+  {
+    "id": "F15",
+    "label": "Casa F15",
+    "quadra": "F",
+    "numero": 15,
+    "x": 477.2,
+    "y": 531.82
+  },
+  {
+    "id": "F16",
+    "label": "Casa F16",
+    "quadra": "F",
+    "numero": 16,
+    "x": 477.2,
+    "y": 551.38
+  },
+  {
+    "id": "F17",
+    "label": "Casa F17",
+    "quadra": "F",
+    "numero": 17,
+    "x": 434.49,
+    "y": 551.5
+  },
+  {
+    "id": "F18",
+    "label": "Casa F18",
+    "quadra": "F",
+    "numero": 18,
+    "x": 434.49,
+    "y": 531.94
+  },
+  {
+    "id": "F19",
+    "label": "Casa F19",
+    "quadra": "F",
+    "numero": 19,
+    "x": 434.49,
+    "y": 512.38
+  },
+  {
+    "id": "F20",
+    "label": "Casa F20",
+    "quadra": "F",
+    "numero": 20,
+    "x": 434.49,
+    "y": 492.82
+  },
+  {
+    "id": "F21",
+    "label": "Casa F21",
+    "quadra": "F",
+    "numero": 21,
+    "x": 434.72,
+    "y": 473.26
+  },
+  {
+    "id": "F22",
+    "label": "Casa F22",
+    "quadra": "F",
+    "numero": 22,
+    "x": 434.49,
+    "y": 453.7
+  },
+  {
+    "id": "F23",
+    "label": "Casa F23",
+    "quadra": "F",
+    "numero": 23,
+    "x": 434.49,
+    "y": 434.14
+  },
+  {
+    "id": "F24",
+    "label": "Casa F24",
+    "quadra": "F",
+    "numero": 24,
+    "x": 434.49,
+    "y": 414.58
+  },
+  {
+    "id": "F25",
+    "label": "Casa F25",
+    "quadra": "F",
+    "numero": 25,
+    "x": 434.49,
+    "y": 395.02
+  },
+  {
+    "id": "F26",
+    "label": "Casa F26",
+    "quadra": "F",
+    "numero": 26,
+    "x": 434.49,
+    "y": 375.46
+  },
+  {
+    "id": "F27",
+    "label": "Casa F27",
+    "quadra": "F",
+    "numero": 27,
+    "x": 434.49,
+    "y": 355.9
+  },
+  {
+    "id": "F28",
+    "label": "Casa F28",
+    "quadra": "F",
+    "numero": 28,
+    "x": 434.6,
+    "y": 338.74
+  },
+  {
+    "id": "F29",
+    "label": "Casa F29",
+    "quadra": "F",
+    "numero": 29,
+    "x": 434.6,
+    "y": 319.18
+  },
+  {
+    "id": "F30",
+    "label": "Casa F30",
+    "quadra": "F",
+    "numero": 30,
+    "x": 434.6,
+    "y": 299.62
+  },
+  {
+    "id": "F31",
+    "label": "Casa F31",
+    "quadra": "F",
+    "numero": 31,
+    "x": 434.97,
+    "y": 280.06
+  },
+  {
+    "id": "F32",
+    "label": "Casa F32",
+    "quadra": "F",
+    "numero": 32,
+    "x": 434.6,
+    "y": 260.5
+  },
+  {
+    "id": "G1",
+    "label": "Casa G1",
+    "quadra": "G",
+    "numero": 1,
+    "x": 471.71,
+    "y": 180.09
+  },
+  {
+    "id": "G2",
+    "label": "Casa G2",
+    "quadra": "G",
+    "numero": 2,
+    "x": 454.91,
+    "y": 188.25
+  },
+  {
+    "id": "G3",
+    "label": "Casa G3",
+    "quadra": "G",
+    "numero": 3,
+    "x": 436.43,
+    "y": 194.49
+  },
+  {
+    "id": "G4",
+    "label": "Casa G4",
+    "quadra": "G",
+    "numero": 4,
+    "x": 417.95,
+    "y": 200.73
+  },
+  {
+    "id": "G5",
+    "label": "Casa G5",
+    "quadra": "G",
+    "numero": 5,
+    "x": 399.35,
+    "y": 207.09
+  },
+  {
+    "id": "G6",
+    "label": "Casa G6",
+    "quadra": "G",
+    "numero": 6,
+    "x": 380.87,
+    "y": 213.33
+  },
+  {
+    "id": "G7",
+    "label": "Casa G7",
+    "quadra": "G",
+    "numero": 7,
+    "x": 359.51,
+    "y": 219.33
+  },
+  {
+    "id": "G8",
+    "label": "Casa G8",
+    "quadra": "G",
+    "numero": 8,
+    "x": 340.19,
+    "y": 223.29
+  },
+  {
+    "id": "G9",
+    "label": "Casa G9",
+    "quadra": "G",
+    "numero": 9,
+    "x": 321.71,
+    "y": 229.53
+  },
+  {
+    "id": "G10",
+    "label": "Casa G10",
+    "quadra": "G",
+    "numero": 10,
+    "x": 303.09,
+    "y": 235.88
+  },
+  {
+    "id": "G11",
+    "label": "Casa G11",
+    "quadra": "G",
+    "numero": 11,
+    "x": 285.82,
+    "y": 246.19
+  },
+  {
+    "id": "G12",
+    "label": "Casa G12",
+    "quadra": "G",
+    "numero": 12,
+    "x": 267.1,
+    "y": 252.2
+  },
+  {
+    "id": "G13",
+    "label": "Casa G13",
+    "quadra": "G",
+    "numero": 13,
+    "x": 248.61,
+    "y": 258.44
+  },
+  {
+    "id": "G14",
+    "label": "Casa G14",
+    "quadra": "G",
+    "numero": 14,
+    "x": 230.13,
+    "y": 264.79
+  },
+  {
+    "id": "G15",
+    "label": "Casa G15",
+    "quadra": "G",
+    "numero": 15,
+    "x": 211.54,
+    "y": 271.03
+  },
+  {
+    "id": "G16",
+    "label": "Casa G16",
+    "quadra": "G",
+    "numero": 16,
+    "x": 193.06,
+    "y": 277.27
+  },
+  {
+    "id": "G17",
+    "label": "Casa G17",
+    "quadra": "G",
+    "numero": 17,
+    "x": 174.58,
+    "y": 283.63
+  },
+  {
+    "id": "G18",
+    "label": "Casa G18",
+    "quadra": "G",
+    "numero": 18,
+    "x": 155.98,
+    "y": 289.87
+  },
+  {
+    "id": "G19",
+    "label": "Casa G19",
+    "quadra": "G",
+    "numero": 19,
+    "x": 137.5,
+    "y": 296.23
+  },
+  {
+    "id": "G20",
+    "label": "Casa G20",
+    "quadra": "G",
+    "numero": 20,
+    "x": 117.09,
+    "y": 302.35
+  },
+  {
+    "id": "H1",
+    "label": "Casa H1",
+    "quadra": "H",
+    "numero": 1,
+    "x": 363.87,
+    "y": 299.02
+  },
+  {
+    "id": "H2",
+    "label": "Casa H2",
+    "quadra": "H",
+    "numero": 2,
+    "x": 363.63,
+    "y": 319.18
+  },
+  {
+    "id": "H3",
+    "label": "Casa H3",
+    "quadra": "H",
+    "numero": 3,
+    "x": 370.35,
+    "y": 338.98
+  },
+  {
+    "id": "H4",
+    "label": "Casa H4",
+    "quadra": "H",
+    "numero": 4,
+    "x": 370.59,
+    "y": 358.3
+  },
+  {
+    "id": "H5",
+    "label": "Casa H5",
+    "quadra": "H",
+    "numero": 5,
+    "x": 370.59,
+    "y": 377.86
+  },
+  {
+    "id": "H6",
+    "label": "Casa H6",
+    "quadra": "H",
+    "numero": 6,
+    "x": 370.59,
+    "y": 397.42
+  },
+  {
+    "id": "H7",
+    "label": "Casa H7",
+    "quadra": "H",
+    "numero": 7,
+    "x": 370.59,
+    "y": 416.98
+  },
+  {
+    "id": "H8",
+    "label": "Casa H8",
+    "quadra": "H",
+    "numero": 8,
+    "x": 370.59,
+    "y": 436.54
+  },
+  {
+    "id": "H9",
+    "label": "Casa H9",
+    "quadra": "H",
+    "numero": 9,
+    "x": 370.59,
+    "y": 456.1
+  },
+  {
+    "id": "H10",
+    "label": "Casa H10",
+    "quadra": "H",
+    "numero": 10,
+    "x": 370.66,
+    "y": 475.66
+  },
+  {
+    "id": "H11",
+    "label": "Casa H11",
+    "quadra": "H",
+    "numero": 11,
+    "x": 370.89,
+    "y": 495.22
+  },
+  {
+    "id": "H12",
+    "label": "Casa H12",
+    "quadra": "H",
+    "numero": 12,
+    "x": 370.54,
+    "y": 514.78
+  },
+  {
+    "id": "H13",
+    "label": "Casa H13",
+    "quadra": "H",
+    "numero": 13,
+    "x": 370.54,
+    "y": 534.34
+  },
+  {
+    "id": "H14",
+    "label": "Casa H14",
+    "quadra": "H",
+    "numero": 14,
+    "x": 370.54,
+    "y": 553.9
+  },
+  {
+    "id": "H15",
+    "label": "Casa H15",
+    "quadra": "H",
+    "numero": 15,
+    "x": 328.29,
+    "y": 553.9
+  },
+  {
+    "id": "H16",
+    "label": "Casa H16",
+    "quadra": "H",
+    "numero": 16,
+    "x": 328.29,
+    "y": 534.34
+  },
+  {
+    "id": "H17",
+    "label": "Casa H17",
+    "quadra": "H",
+    "numero": 17,
+    "x": 328.29,
+    "y": 514.78
+  },
+  {
+    "id": "H18",
+    "label": "Casa H18",
+    "quadra": "H",
+    "numero": 18,
+    "x": 328.29,
+    "y": 495.22
+  },
+  {
+    "id": "H19",
+    "label": "Casa H19",
+    "quadra": "H",
+    "numero": 19,
+    "x": 328.29,
+    "y": 475.66
+  },
+  {
+    "id": "H20",
+    "label": "Casa H20",
+    "quadra": "H",
+    "numero": 20,
+    "x": 328.29,
+    "y": 456.1
+  },
+  {
+    "id": "H21",
+    "label": "Casa H21",
+    "quadra": "H",
+    "numero": 21,
+    "x": 328.65,
+    "y": 436.54
+  },
+  {
+    "id": "H22",
+    "label": "Casa H22",
+    "quadra": "H",
+    "numero": 22,
+    "x": 328.29,
+    "y": 416.98
+  },
+  {
+    "id": "H23",
+    "label": "Casa H23",
+    "quadra": "H",
+    "numero": 23,
+    "x": 328.29,
+    "y": 397.42
+  },
+  {
+    "id": "H24",
+    "label": "Casa H24",
+    "quadra": "H",
+    "numero": 24,
+    "x": 328.29,
+    "y": 377.86
+  },
+  {
+    "id": "H25",
+    "label": "Casa H25",
+    "quadra": "H",
+    "numero": 25,
+    "x": 328.29,
+    "y": 358.3
+  },
+  {
+    "id": "H26",
+    "label": "Casa H26",
+    "quadra": "H",
+    "numero": 26,
+    "x": 328.29,
+    "y": 338.74
+  },
+  {
+    "id": "H27",
+    "label": "Casa H27",
+    "quadra": "H",
+    "numero": 27,
+    "x": 328.29,
+    "y": 318.94
+  },
+  {
+    "id": "H28",
+    "label": "Casa H28",
+    "quadra": "H",
+    "numero": 28,
+    "x": 328.29,
+    "y": 298.78
+  },
+  {
+    "id": "I1",
+    "label": "Casa I1",
+    "quadra": "I",
+    "numero": 1,
+    "x": 258.45,
+    "y": 337.9
+  },
+  {
+    "id": "I2",
+    "label": "Casa I2",
+    "quadra": "I",
+    "numero": 2,
+    "x": 258.09,
+    "y": 358.06
+  },
+  {
+    "id": "I3",
+    "label": "Casa I3",
+    "quadra": "I",
+    "numero": 3,
+    "x": 260.73,
+    "y": 377.86
+  },
+  {
+    "id": "I4",
+    "label": "Casa I4",
+    "quadra": "I",
+    "numero": 4,
+    "x": 260.73,
+    "y": 397.42
+  },
+  {
+    "id": "I5",
+    "label": "Casa I5",
+    "quadra": "I",
+    "numero": 5,
+    "x": 260.73,
+    "y": 416.98
+  },
+  {
+    "id": "I6",
+    "label": "Casa I6",
+    "quadra": "I",
+    "numero": 6,
+    "x": 260.73,
+    "y": 436.54
+  },
+  {
+    "id": "I7",
+    "label": "Casa I7",
+    "quadra": "I",
+    "numero": 7,
+    "x": 260.73,
+    "y": 456.1
+  },
+  {
+    "id": "I8",
+    "label": "Casa I8",
+    "quadra": "I",
+    "numero": 8,
+    "x": 260.73,
+    "y": 475.66
+  },
+  {
+    "id": "I9",
+    "label": "Casa I9",
+    "quadra": "I",
+    "numero": 9,
+    "x": 260.73,
+    "y": 495.22
+  },
+  {
+    "id": "I10",
+    "label": "Casa I10",
+    "quadra": "I",
+    "numero": 10,
+    "x": 260.73,
+    "y": 514.78
+  },
+  {
+    "id": "I11",
+    "label": "Casa I11",
+    "quadra": "I",
+    "numero": 11,
+    "x": 261.09,
+    "y": 534.34
+  },
+  {
+    "id": "I12",
+    "label": "Casa I12",
+    "quadra": "I",
+    "numero": 12,
+    "x": 260.73,
+    "y": 553.9
+  },
+  {
+    "id": "I13",
+    "label": "Casa I13",
+    "quadra": "I",
+    "numero": 13,
+    "x": 222.09,
+    "y": 553.9
+  },
+  {
+    "id": "I14",
+    "label": "Casa I14",
+    "quadra": "I",
+    "numero": 14,
+    "x": 222.09,
+    "y": 534.34
+  },
+  {
+    "id": "I15",
+    "label": "Casa I15",
+    "quadra": "I",
+    "numero": 15,
+    "x": 222.09,
+    "y": 514.78
+  },
+  {
+    "id": "I16",
+    "label": "Casa I16",
+    "quadra": "I",
+    "numero": 16,
+    "x": 222.09,
+    "y": 495.22
+  },
+  {
+    "id": "I17",
+    "label": "Casa I17",
+    "quadra": "I",
+    "numero": 17,
+    "x": 222.09,
+    "y": 475.66
+  },
+  {
+    "id": "I18",
+    "label": "Casa I18",
+    "quadra": "I",
+    "numero": 18,
+    "x": 222.09,
+    "y": 456.1
+  },
+  {
+    "id": "I19",
+    "label": "Casa I19",
+    "quadra": "I",
+    "numero": 19,
+    "x": 222.09,
+    "y": 436.54
+  },
+  {
+    "id": "I20",
+    "label": "Casa I20",
+    "quadra": "I",
+    "numero": 20,
+    "x": 222.09,
+    "y": 416.98
+  },
+  {
+    "id": "I21",
+    "label": "Casa I21",
+    "quadra": "I",
+    "numero": 21,
+    "x": 222.45,
+    "y": 397.42
+  },
+  {
+    "id": "I22",
+    "label": "Casa I22",
+    "quadra": "I",
+    "numero": 22,
+    "x": 222.09,
+    "y": 377.86
+  },
+  {
+    "id": "I23",
+    "label": "Casa I23",
+    "quadra": "I",
+    "numero": 23,
+    "x": 225.45,
+    "y": 358.06
+  },
+  {
+    "id": "I24",
+    "label": "Casa I24",
+    "quadra": "I",
+    "numero": 24,
+    "x": 225.45,
+    "y": 337.9
+  },
+  {
+    "id": "J1",
+    "label": "Casa J1",
+    "quadra": "J",
+    "numero": 1,
+    "x": 151.99,
+    "y": 416.38
+  },
+  {
+    "id": "J2",
+    "label": "Casa J2",
+    "quadra": "J",
+    "numero": 2,
+    "x": 150.91,
+    "y": 436.54
+  },
+  {
+    "id": "J3",
+    "label": "Casa J3",
+    "quadra": "J",
+    "numero": 3,
+    "x": 151.39,
+    "y": 456.1
+  },
+  {
+    "id": "J4",
+    "label": "Casa J4",
+    "quadra": "J",
+    "numero": 4,
+    "x": 151.39,
+    "y": 475.66
+  },
+  {
+    "id": "J5",
+    "label": "Casa J5",
+    "quadra": "J",
+    "numero": 5,
+    "x": 151.39,
+    "y": 495.22
+  },
+  {
+    "id": "J6",
+    "label": "Casa J6",
+    "quadra": "J",
+    "numero": 6,
+    "x": 151.39,
+    "y": 514.78
+  },
+  {
+    "id": "J7",
+    "label": "Casa J7",
+    "quadra": "J",
+    "numero": 7,
+    "x": 151.39,
+    "y": 534.34
+  },
+  {
+    "id": "J8",
+    "label": "Casa J8",
+    "quadra": "J",
+    "numero": 8,
+    "x": 151.39,
+    "y": 553.9
+  },
+  {
+    "id": "K1",
+    "label": "Casa K1",
+    "quadra": "K",
+    "numero": 1,
+    "x": 975.59,
+    "y": 611.26
+  },
+  {
+    "id": "K2",
+    "label": "Casa K2",
+    "quadra": "K",
+    "numero": 2,
+    "x": 956.63,
+    "y": 611.98
+  },
+  {
+    "id": "K3",
+    "label": "Casa K3",
+    "quadra": "K",
+    "numero": 3,
+    "x": 936.59,
+    "y": 611.62
+  },
+  {
+    "id": "K4",
+    "label": "Casa K4",
+    "quadra": "K",
+    "numero": 4,
+    "x": 917.03,
+    "y": 611.62
+  },
+  {
+    "id": "K5",
+    "label": "Casa K5",
+    "quadra": "K",
+    "numero": 5,
+    "x": 897.47,
+    "y": 611.62
+  },
+  {
+    "id": "K6",
+    "label": "Casa K6",
+    "quadra": "K",
+    "numero": 6,
+    "x": 877.91,
+    "y": 611.62
+  },
+  {
+    "id": "K7",
+    "label": "Casa K7",
+    "quadra": "K",
+    "numero": 7,
+    "x": 858.35,
+    "y": 611.62
+  },
+  {
+    "id": "K8",
+    "label": "Casa K8",
+    "quadra": "K",
+    "numero": 8,
+    "x": 838.79,
+    "y": 611.62
+  },
+  {
+    "id": "K9",
+    "label": "Casa K9",
+    "quadra": "K",
+    "numero": 9,
+    "x": 819.23,
+    "y": 611.62
+  },
+  {
+    "id": "K10",
+    "label": "Casa K10",
+    "quadra": "K",
+    "numero": 10,
+    "x": 799.67,
+    "y": 611.67
+  },
+  {
+    "id": "K11",
+    "label": "Casa K11",
+    "quadra": "K",
+    "numero": 11,
+    "x": 780.11,
+    "y": 611.31
+  },
+  {
+    "id": "K12",
+    "label": "Casa K12",
+    "quadra": "K",
+    "numero": 12,
+    "x": 760.55,
+    "y": 611.67
+  },
+  {
+    "id": "K13",
+    "label": "Casa K13",
+    "quadra": "K",
+    "numero": 13,
+    "x": 740.99,
+    "y": 611.67
+  },
+  {
+    "id": "K14",
+    "label": "Casa K14",
+    "quadra": "K",
+    "numero": 14,
+    "x": 721.43,
+    "y": 611.67
+  },
+  {
+    "id": "K15",
+    "label": "Casa K15",
+    "quadra": "K",
+    "numero": 15,
+    "x": 701.87,
+    "y": 611.67
+  },
+  {
+    "id": "K16",
+    "label": "Casa K16",
+    "quadra": "K",
+    "numero": 16,
+    "x": 682.31,
+    "y": 611.67
+  },
+  {
+    "id": "K17",
+    "label": "Casa K17",
+    "quadra": "K",
+    "numero": 17,
+    "x": 662.75,
+    "y": 611.67
+  },
+  {
+    "id": "K18",
+    "label": "Casa K18",
+    "quadra": "K",
+    "numero": 18,
+    "x": 643.19,
+    "y": 611.67
+  },
+  {
+    "id": "K19",
+    "label": "Casa K19",
+    "quadra": "K",
+    "numero": 19,
+    "x": 623.63,
+    "y": 611.67
+  },
+  {
+    "id": "K20",
+    "label": "Casa K20",
+    "quadra": "K",
+    "numero": 20,
+    "x": 604.07,
+    "y": 611.67
+  },
+  {
+    "id": "L1",
+    "label": "Casa L1",
+    "quadra": "L",
+    "numero": 1,
+    "x": 545.75,
+    "y": 616.0
+  },
+  {
+    "id": "L2",
+    "label": "Casa L2",
+    "quadra": "L",
+    "numero": 2,
+    "x": 526.19,
+    "y": 616.36
+  },
+  {
+    "id": "L3",
+    "label": "Casa L3",
+    "quadra": "L",
+    "numero": 3,
+    "x": 506.63,
+    "y": 616.36
+  },
+  {
+    "id": "L4",
+    "label": "Casa L4",
+    "quadra": "L",
+    "numero": 4,
+    "x": 487.07,
+    "y": 616.36
+  },
+  {
+    "id": "L5",
+    "label": "Casa L5",
+    "quadra": "L",
+    "numero": 5,
+    "x": 467.51,
+    "y": 616.48
+  },
+  {
+    "id": "L6",
+    "label": "Casa L6",
+    "quadra": "L",
+    "numero": 6,
+    "x": 447.95,
+    "y": 616.36
+  },
+  {
+    "id": "L7",
+    "label": "Casa L7",
+    "quadra": "L",
+    "numero": 7,
+    "x": 428.39,
+    "y": 616.36
+  },
+  {
+    "id": "L8",
+    "label": "Casa L8",
+    "quadra": "L",
+    "numero": 8,
+    "x": 408.83,
+    "y": 616.36
+  },
+  {
+    "id": "L9",
+    "label": "Casa L9",
+    "quadra": "L",
+    "numero": 9,
+    "x": 389.27,
+    "y": 616.36
+  },
+  {
+    "id": "L10",
+    "label": "Casa L10",
+    "quadra": "L",
+    "numero": 10,
+    "x": 369.71,
+    "y": 616.41
+  },
+  {
+    "id": "L11",
+    "label": "Casa L11",
+    "quadra": "L",
+    "numero": 11,
+    "x": 350.15,
+    "y": 616.05
+  },
+  {
+    "id": "L12",
+    "label": "Casa L12",
+    "quadra": "L",
+    "numero": 12,
+    "x": 330.59,
+    "y": 616.41
+  },
+  {
+    "id": "L13",
+    "label": "Casa L13",
+    "quadra": "L",
+    "numero": 13,
+    "x": 311.03,
+    "y": 616.41
+  },
+  {
+    "id": "L14",
+    "label": "Casa L14",
+    "quadra": "L",
+    "numero": 14,
+    "x": 291.47,
+    "y": 616.41
+  },
+  {
+    "id": "L15",
+    "label": "Casa L15",
+    "quadra": "L",
+    "numero": 15,
+    "x": 271.91,
+    "y": 616.41
+  },
+  {
+    "id": "L16",
+    "label": "Casa L16",
+    "quadra": "L",
+    "numero": 16,
+    "x": 252.35,
+    "y": 616.41
+  },
+  {
+    "id": "L17",
+    "label": "Casa L17",
+    "quadra": "L",
+    "numero": 17,
+    "x": 232.79,
+    "y": 616.41
+  },
+  {
+    "id": "L18",
+    "label": "Casa L18",
+    "quadra": "L",
+    "numero": 18,
+    "x": 213.23,
+    "y": 616.41
+  },
+  {
+    "id": "L19",
+    "label": "Casa L19",
+    "quadra": "L",
+    "numero": 19,
+    "x": 193.67,
+    "y": 616.41
+  },
+  {
+    "id": "L20",
+    "label": "Casa L20",
+    "quadra": "L",
+    "numero": 20,
+    "x": 174.11,
+    "y": 616.41
+  },
+  {
+    "id": "L21",
+    "label": "Casa L21",
+    "quadra": "L",
+    "numero": 21,
+    "x": 154.54,
+    "y": 616.05
+  },
+  {
+    "id": "L22",
+    "label": "Casa L22",
+    "quadra": "L",
+    "numero": 22,
+    "x": 134.38,
+    "y": 616.41
+  }
+]
