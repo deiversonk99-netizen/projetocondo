@@ -46,15 +46,11 @@ Não é necessário cadastrar variáveis de ambiente. A Vercel fornece `VERCEL_P
 - `src/data/map.ts`: pontos de interesse, nós e ligações das ruas.
 - `src/lib/routing.ts`: encaixe dos pontos na rua, menor rota e otimização de múltiplas paradas.
 - `src/components/CondoMap.tsx`: busca, interação e SVG do mapa.
-- `public/mapa-esquematico.png`: representação visual independente usada pelo aplicativo.
-- `scripts/generate_schematic_map.py`: gerador reproduzível do mapa e da imagem de compartilhamento.
-
-O repositório não inclui a planta arquitetônica do condomínio. O mapa publicado é uma representação
-funcional própria, desenhada somente com as informações necessárias à navegação: ruas internas,
-quadras, numeração das casas, portaria, áreas comuns e coordenadas X/Y.
+- `public/mapa-condominio-sem-assinatura.png`: versão tratada da planta usada pelo aplicativo.
 
 ## Ajustes antes do uso oficial
 
-A malha esquemática precisa ser conferida no condomínio, principalmente sentidos de circulação,
-acessos permitidos e caminhos exclusivos para pedestres. Como o desenho não tem escala técnica,
-a distância exibida usa unidades visuais X/Y, não metros.
+A malha das ruas foi criada sobre a planta do condomínio e precisa ser conferida no local,
+principalmente sentidos de circulação, acessos permitidos e caminhos exclusivos para pedestres.
+Como a planta está sem escala, a distância exibida usa unidades visuais X/Y, não metros. Antes da
+divulgação pública, confirme que existe autorização para utilizar a planta no aplicativo.
