@@ -46,7 +46,8 @@ Não é necessário cadastrar variáveis de ambiente. A Vercel fornece `VERCEL_P
 - `src/data/map.ts`: pontos de interesse, nós e ligações das ruas.
 - `src/lib/routing.ts`: encaixe dos pontos na rua, menor rota e otimização de múltiplas paradas.
 - `src/components/CondoMap.tsx`: busca, interação e SVG do mapa.
-- `public/planta-condominio.svg`: planta vetorial fornecida para uso como base visual do aplicativo.
+- `public/planta-condominio.svg`: planta vetorial otimizada para o mapa, sem vegetação, carimbos e marcações técnicas de acesso.
+- `scripts/optimize_floor_plan_svg.py`: reproduz a limpeza e a compactação do SVG original.
 
 ## Ajustes antes do uso oficial
 
