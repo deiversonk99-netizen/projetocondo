@@ -1,32 +1,26 @@
-# Origem e independência do mapa
+# Origem e uso da planta
 
-O mapa publicado pelo aplicativo é uma representação funcional original em SVG. Ele é construído
-em tempo de execução a partir de dois conjuntos de dados do próprio sistema:
+O aplicativo utiliza `public/planta-condominio.svg`, arquivo fornecido pelo responsável pelo
+repositório como base visual da navegação. O arquivo é exibido rotacionado para a orientação do mapa;
+carimbo, observações, identificadores de assinatura eletrônica e a indicação de área reservada ficam
+fora da apresentação visual do aplicativo.
+
+A busca e a roteirização não dependem da geolocalização do aparelho nem das entidades internas do
+arquivo SVG. Elas usam dados funcionais próprios:
 
 - identificação e coordenadas X/Y das casas em `src/data/houses.json`;
 - pontos de interesse, nós e conexões das ruas em `src/data/map.ts`.
 
-## Elementos deliberadamente não reutilizados
+## Autoria e autorização
 
-- imagem raster ou página do PDF da planta arquitetônica;
-- cores, espessuras de linha e convenções gráficas de CAD;
-- tipografia técnica, carimbo, legendas, hachuras ou tracejados do projeto;
-- árvores, rosa dos ventos, símbolos e demais blocos gráficos do documento;
-- cotas, detalhes construtivos, recuos de telhado e informações contratuais.
-
-## Linguagem visual própria
-
-O desenho utiliza uma paleta web em tons de `slate`, `teal` e cores sólidas para áreas comuns.
-Casas são representadas por formas geométricas simples, ruas por faixas neutras e vegetação por
-círculos estilizados. A tipografia usa a pilha `Inter, Arial, sans-serif`.
+O repositório e o aplicativo não reivindicam autoria sobre a planta arquitetônica. A inclusão do
+arquivo no projeto não transfere nem comprova direitos de reprodução. A disponibilização pública
+deve ocorrer somente com autorização do autor ou titular dos direitos, preferencialmente por escrito,
+incluindo permissão para uso digital, adaptação visual, hospedagem e divulgação.
 
 ## Limites
 
 O mapa serve somente para orientação interna e roteirização por coordenadas. Não é projeto
-arquitetônico, levantamento topográfico nem representação em escala técnica. A conferência de
-sentidos de circulação, acessos e caminhos permitidos deve ser feita no local.
-
-Esta documentação registra o processo técnico adotado, mas não substitui uma análise jurídica nem
-uma autorização escrita do titular quando houver intenção de reproduzir elementos do projeto
-arquitetônico original.
+arquitetônico, levantamento topográfico nem representação em escala técnica. Sentidos de circulação,
+acessos e caminhos permitidos devem ser conferidos no local.
 

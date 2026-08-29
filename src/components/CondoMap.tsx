@@ -11,7 +11,6 @@ import {
   type WheelEvent,
 } from "react";
 import housesJson from "@/data/houses.json";
-import CondoVectorBackground from "@/components/CondoVectorBackground";
 import {
   INITIAL_VIEW,
   MAP_SIZE,
@@ -582,11 +581,11 @@ export default function CondoMap() {
           <p className="status-message" aria-live="polite">{message}</p>
         </aside>
 
-        <section className="map-card" aria-label="Mapa vetorial interativo do condomínio">
+        <section className="map-card" aria-label="Mapa interativo do condomínio">
           <div className="map-toolbar">
             <div>
-              <strong>Mapa vetorial do condomínio</strong>
-              <span>316 casas • quadras A a L • coordenadas X/Y</span>
+              <strong>Mapa do condomínio</strong>
+              <span>316 casas • quadras A a L</span>
             </div>
             <div className="map-actions" aria-label="Controles do mapa">
               <button type="button" onClick={() => zoom(.78)} aria-label="Aumentar zoom">+</button>
@@ -608,14 +607,27 @@ export default function CondoMap() {
               className="condo-map"
               viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
               role="img"
-              aria-label="Mapa vetorial interativo do Duo Jardim Paraíso"
+              aria-label="Planta interativa do Duo Jardim Paraíso"
               onWheel={handleWheel}
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerEnd}
               onPointerCancel={handlePointerEnd}
             >
-              <CondoVectorBackground />
+              <g className="plan-artwork" aria-hidden="true">
+                <image
+                  href="/planta-condominio.svg"
+                  x="0"
+                  y="0"
+                  width={MAP_SIZE.height}
+                  height={MAP_SIZE.width}
+                  preserveAspectRatio="none"
+                  transform={`translate(0 ${MAP_SIZE.height}) rotate(-90)`}
+                />
+                <rect className="plan-redaction" x="0" y="0" width="70" height={MAP_SIZE.height} />
+                <rect className="plan-redaction" x="994" y="205" width="197" height="465" />
+                <rect className="plan-redaction" x="70" y="670" width="1121" height="172" />
+              </g>
 
               <g className="road-network" aria-hidden="true">
                 {roadEdges.map((edge) => {
@@ -680,7 +692,7 @@ export default function CondoMap() {
             <span><i className="legend-dot legend-origin" /> Partida</span>
             <span><i className="legend-dot legend-destination" /> Destinos numerados</span>
             <span><i className="legend-line" /> Melhor rota</span>
-            <small>Desenho independente, sem escala técnica • arraste ou use pinça para navegar</small>
+            <small>Planta de referência • arraste ou use pinça para navegar</small>
           </footer>
         </section>
 
