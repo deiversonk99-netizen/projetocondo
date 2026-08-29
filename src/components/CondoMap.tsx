@@ -11,6 +11,7 @@ import {
   type WheelEvent,
 } from "react";
 import housesJson from "@/data/houses.json";
+import CondoVectorBackground from "@/components/CondoVectorBackground";
 import {
   INITIAL_VIEW,
   MAP_SIZE,
@@ -581,11 +582,11 @@ export default function CondoMap() {
           <p className="status-message" aria-live="polite">{message}</p>
         </aside>
 
-        <section className="map-card" aria-label="Mapa interativo do condomínio">
+        <section className="map-card" aria-label="Mapa vetorial interativo do condomínio">
           <div className="map-toolbar">
             <div>
-              <strong>Mapa do condomínio</strong>
-              <span>316 casas • quadras A a L</span>
+              <strong>Mapa vetorial do condomínio</strong>
+              <span>316 casas • quadras A a L • coordenadas X/Y</span>
             </div>
             <div className="map-actions" aria-label="Controles do mapa">
               <button type="button" onClick={() => zoom(.78)} aria-label="Aumentar zoom">+</button>
@@ -607,14 +608,14 @@ export default function CondoMap() {
               className="condo-map"
               viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
               role="img"
-              aria-label="Planta interativa do Duo Jardim Paraíso"
+              aria-label="Mapa vetorial interativo do Duo Jardim Paraíso"
               onWheel={handleWheel}
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerEnd}
               onPointerCancel={handlePointerEnd}
             >
-              <image href="/mapa-condominio-sem-assinatura.png" x="0" y="0" width={MAP_SIZE.width} height={MAP_SIZE.height} preserveAspectRatio="none" />
+              <CondoVectorBackground />
 
               <g className="road-network" aria-hidden="true">
                 {roadEdges.map((edge) => {
@@ -679,7 +680,7 @@ export default function CondoMap() {
             <span><i className="legend-dot legend-origin" /> Partida</span>
             <span><i className="legend-dot legend-destination" /> Destinos numerados</span>
             <span><i className="legend-line" /> Melhor rota</span>
-            <small>Arraste para mover • pinça ou +/− para ampliar</small>
+            <small>Desenho independente, sem escala técnica • arraste ou use pinça para navegar</small>
           </footer>
         </section>
 
@@ -736,3 +737,4 @@ export default function CondoMap() {
     </main>
   );
 }
+

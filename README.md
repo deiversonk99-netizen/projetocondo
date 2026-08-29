@@ -46,11 +46,12 @@ Não é necessário cadastrar variáveis de ambiente. A Vercel fornece `VERCEL_P
 - `src/data/map.ts`: pontos de interesse, nós e ligações das ruas.
 - `src/lib/routing.ts`: encaixe dos pontos na rua, menor rota e otimização de múltiplas paradas.
 - `src/components/CondoMap.tsx`: busca, interação e SVG do mapa.
-- `public/mapa-condominio-sem-assinatura.png`: versão tratada da planta usada pelo aplicativo.
+- `src/components/CondoVectorBackground.tsx`: desenho vetorial independente gerado pelos dados do aplicativo.
 
 ## Ajustes antes do uso oficial
 
-A malha das ruas foi criada sobre a planta do condomínio e precisa ser conferida no local,
-principalmente sentidos de circulação, acessos permitidos e caminhos exclusivos para pedestres.
-Como a planta está sem escala, a distância exibida usa unidades visuais X/Y, não metros. Antes da
-divulgação pública, confirme que existe autorização para utilizar a planta no aplicativo.
+A malha das ruas e as posições precisam ser conferidas no local, principalmente sentidos de
+circulação, acessos permitidos e caminhos exclusivos para pedestres. O aplicativo não incorpora a
+planta arquitetônica: o mapa é desenhado em SVG a partir das coordenadas funcionais cadastradas.
+Como o desenho está sem escala técnica, a distância exibida usa unidades visuais X/Y, não metros.
+

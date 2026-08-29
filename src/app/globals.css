@@ -124,11 +124,11 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 .map-mode-pill { position: absolute; top: 12px; left: 12px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; max-width: calc(100% - 24px); padding: 8px 11px; border: 1px solid rgba(255, 255, 255, .88); border-radius: 999px; background: rgba(255, 253, 248, .93); color: var(--ink); font-size: 11px; font-weight: 800; box-shadow: 0 6px 18px rgba(21, 59, 51, .12); backdrop-filter: blur(8px); pointer-events: none; }
 .condo-map { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; user-select: none; }
 .condo-map:active { cursor: grabbing; }
-.condo-map image { opacity: .84; }
-.road-network line { stroke: rgba(29, 118, 87, .22); stroke-width: 2.2; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke; }
+.vector-map-background { pointer-events: none; }
+.road-network line { stroke: rgba(15, 118, 110, .08); stroke-width: 1.7; stroke-dasharray: 4 8; vector-effect: non-scaling-stroke; }
 .house-target { cursor: pointer; outline: none; }
 .house-hit-area { fill: transparent; pointer-events: all; }
-.house-point { fill: rgba(29, 118, 87, .09); stroke: rgba(29, 118, 87, .48); stroke-width: 1; transition: fill .15s, stroke .15s; vector-effect: non-scaling-stroke; pointer-events: none; }
+.house-point { fill: transparent; stroke: transparent; stroke-width: 1; transition: fill .15s, stroke .15s; vector-effect: non-scaling-stroke; pointer-events: none; }
 .house-target:focus-visible .house-point { fill: rgba(29, 118, 87, .72); stroke: white; stroke-width: 2; }
 .house-point.quadra-selected { fill: rgba(29, 118, 87, .44); }
 .house-point.selected { fill: var(--accent); stroke: white; stroke-width: 2; }
@@ -264,3 +264,4 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
