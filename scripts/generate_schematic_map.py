@@ -30,16 +30,16 @@ GREEN_DARK = "#12563f"
 ACCENT = "#ef6a3b"
 PAPER = "#e8eee7"
 WHITE = "#fffdf8"
-LAND = "#edf3e9"
-LOT = "#f6f4e9"
-LOT_EDGE = "#c8d3c9"
-SIDEWALK = "#f4f2ec"
-CURB = "#bcc5bf"
-ASPHALT = "#d5d9d7"
-ROAD_MARKING = "#f8faf8"
-BUILDING = "#eea080"
-BUILDING_ALT = "#f3b293"
-BUILDING_EDGE = "#b9684b"
+LAND = "#dce7d3"
+LOT = "#d3dfc8"
+LOT_EDGE = "#aebdab"
+SIDEWALK = "#d9d6ca"
+CURB = "#f0c75e"
+ASPHALT = "#66706c"
+ROAD_MARKING = "#e9ece9"
+BUILDING = "#d9784f"
+BUILDING_ALT = "#e5865d"
+BUILDING_EDGE = "#8f4933"
 WATER = "#69c3dd"
 SAND = "#e8d39a"
 PARK = "#dcebd3"
@@ -162,7 +162,7 @@ def draw_rotated_text(base: Image.Image, position: tuple[float, float], text: st
     height = bounds[3] - bounds[1] + sc(6)
     layer = Image.new("RGBA", (width, height), (255, 255, 255, 0))
     layer_draw = ImageDraw.Draw(layer)
-    layer_draw.text((sc(4), sc(2)), text, font=label_font, fill="#6f7975")
+    layer_draw.text((sc(4), sc(2)), text, font=label_font, fill="#eef1ee")
     rotated = layer.rotate(90, expand=True, resample=Image.Resampling.BICUBIC)
     x, y = point(*position)
     base.alpha_composite(rotated, (x - rotated.width // 2, y - rotated.height // 2))
@@ -268,6 +268,84 @@ def draw_building(
     draw.text((px - label_width / 2, py - label_height / 2 - sc(.7)), label, font=label_font, fill=INK)
 
 
+def draw_roof_band(
+    draw: ImageDraw.ImageDraw,
+    houses: list[dict],
+    orientation: str,
+) -> None:
+    sorted_houses = sorted(houses, key=lambda item: item["y"] if orientation == "vertical" else item["x"])
+    if orientation == "vertical":
+        center = sum(item["x"] for item in sorted_houses) / len(sorted_houses)
+        start = min(item["y"] for item in sorted_houses) - 10
+        end = max(item["y"] for item in sorted_houses) + 10
+        box = (center - 14, start, center + 14, end)
+        shadow_box = (center - 12, start + 3, center + 16, end + 4)
+    else:
+        center = sum(item["y"] for item in sorted_houses) / len(sorted_houses)
+        start = min(item["x"] for item in sorted_houses) - 10
+        end = max(item["x"] for item in sorted_houses) + 10
+        box = (start, center - 12, end, center + 12)
+        shadow_box = (start + 3, center - 9, end + 4, center + 15)
+
+    rounded(draw, shadow_box, 3, fill=(32, 43, 38, 55))
+    rounded(draw, box, 3, fill=BUILDING, outline=BUILDING_EDGE, width=sc(1))
+
+    if orientation == "vertical":
+        draw.line((point(center, start + 2), point(center, end - 2)), fill="#f0a283", width=sc(1.1))
+        for first, second in zip(sorted_houses, sorted_houses[1:]):
+            divider = (first["y"] + second["y"]) / 2
+            draw.line((point(center - 13, divider), point(center + 13, divider)), fill="#9f5037", width=sc(.75))
+    else:
+        draw.line((point(start + 2, center), point(end - 2, center)), fill="#f0a283", width=sc(1.1))
+        for first, second in zip(sorted_houses, sorted_houses[1:]):
+            divider = (first["x"] + second["x"]) / 2
+            draw.line((point(divider, center - 11), point(divider, center + 11)), fill="#9f5037", width=sc(.75))
+
+
+def draw_diagonal_roof_band(draw: ImageDraw.ImageDraw, houses: list[dict]) -> None:
+    ordered = sorted(houses, key=lambda item: item["x"])
+    path = [point(item["x"], item["y"]) for item in ordered]
+    shadow = [(x + sc(2.5), y + sc(3)) for x, y in path]
+    draw.line(shadow, fill=(32, 43, 38, 55), width=sc(25), joint="curve")
+    draw.line(path, fill=BUILDING_EDGE, width=sc(26), joint="curve")
+    draw.line(path, fill=BUILDING, width=sc(23), joint="curve")
+    draw.line(path, fill="#f0a283", width=sc(1.1), joint="curve")
+
+    for first, second in zip(ordered, ordered[1:]):
+        mid_x = (first["x"] + second["x"]) / 2
+        mid_y = (first["y"] + second["y"]) / 2
+        angle = math.atan2(second["y"] - first["y"], second["x"] - first["x"])
+        normal_x = math.cos(angle + math.pi / 2) * 11
+        normal_y = math.sin(angle + math.pi / 2) * 11
+        draw.line(
+            (point(mid_x - normal_x, mid_y - normal_y), point(mid_x + normal_x, mid_y + normal_y)),
+            fill="#9f5037",
+            width=sc(.75),
+        )
+
+
+def draw_house_label(draw: ImageDraw.ImageDraw, house: dict) -> None:
+    label = f"{house['quadra']}{house['numero']}"
+    px, py = point(house["x"], house["y"])
+    label_font = font(4.7, True)
+    bounds = draw.textbbox((0, 0), label, font=label_font)
+    width = bounds[2] - bounds[0]
+    height = bounds[3] - bounds[1]
+    draw.rounded_rectangle(
+        (
+            px - width / 2 - sc(2.2),
+            py - height / 2 - sc(1.5),
+            px + width / 2 + sc(2.2),
+            py + height / 2 + sc(1.4),
+        ),
+        radius=sc(2.3),
+        fill=(255, 253, 248, 232),
+        outline=(89, 72, 61, 105),
+        width=sc(.45),
+    )
+    draw.text((px - width / 2, py - height / 2 - sc(.6)), label, font=label_font, fill=INK)
+
+
 def draw_common_area(draw: ImageDraw.ImageDraw) -> None:
     rounded(draw, (545, 70, 925, 179), 22, fill=PARK, outline="#afcaae", width=sc(1.2))
 
@@ -322,18 +400,29 @@ def create_map() -> Image.Image:
     draw = ImageDraw.Draw(image, "RGBA")
     draw_grid(draw)
 
-    # Limite esquemático da área navegável.
-    rounded(draw, (72, 55, 1118, 695), 34, fill=LAND, outline="#91b7a1", width=sc(2))
-    rounded(draw, (83, 66, 1107, 684), 27, outline=(255, 255, 255, 175), width=sc(1))
+    # Contorno irregular inspirado apenas na implantação física do terreno.
+    boundary = [
+        point(78, 660), point(78, 365), point(108, 312), point(485, 158),
+        point(542, 57), point(922, 57), point(1098, 157), point(1101, 660),
+    ]
+    shadow_boundary = [(x + sc(3), y + sc(5)) for x, y in boundary]
+    draw.polygon(shadow_boundary, fill=(33, 51, 43, 38))
+    draw.polygon(boundary, fill=LAND)
+    draw.line(boundary + [boundary[0]], fill="#668f76", width=sc(3), joint="curve")
+    inner_boundary = [
+        point(86, 652), point(86, 370), point(114, 320), point(492, 165),
+        point(549, 66), point(916, 66), point(1089, 163), point(1092, 652),
+    ]
+    draw.line(inner_boundary + [inner_boundary[0]], fill=(255, 255, 255, 165), width=sc(1), joint="curve")
 
     # Paisagismo de borda, inspirado na leitura visual de mapas urbanos.
     for x, y, size in (
-        (92, 126, 7), (94, 154, 6), (96, 183, 7), (98, 214, 6),
-        (103, 246, 7), (108, 278, 6), (111, 311, 7), (1090, 219, 7),
+        (91, 387, 7), (90, 420, 6), (90, 454, 7), (90, 490, 6),
+        (91, 526, 7), (92, 563, 6), (94, 601, 7), (1090, 219, 7),
         (1090, 250, 6), (1091, 283, 7), (1091, 318, 6), (1092, 352, 7),
         (1092, 389, 6), (1089, 426, 7), (1089, 465, 6), (1088, 505, 7),
-        (1088, 547, 6), (1086, 587, 7), (995, 660, 6), (1020, 659, 7),
-        (1046, 656, 6), (1072, 650, 7),
+        (1088, 547, 6), (1086, 587, 7), (1000, 642, 6), (1024, 642, 7),
+        (1048, 640, 6), (1072, 636, 7),
     ):
         draw_tree(draw, x, y, size)
 
@@ -359,14 +448,33 @@ def create_map() -> Image.Image:
         draw.line((point(*start), point(*end)), fill=ASPHALT, width=sc(29))
         dashed_line(draw, start, end, ROAD_MARKING, width=.8, dash=6, gap=8)
 
-    draw.text(point(568, 188), "RUA 2", font=font(6.5, True), fill="#69736f")
-    draw.text(point(568, 572), "RUA 3", font=font(6.5, True), fill="#69736f")
-    draw.text(point(972, 181), "RUA 1", font=font(5.5, True), fill="#69736f")
+    draw.text(point(568, 188), "RUA 2", font=font(6.5, True), fill="#eef1ee")
+    draw.text(point(568, 572), "RUA 3", font=font(6.5, True), fill="#eef1ee")
+    draw.text(point(972, 181), "RUA 1", font=font(5.5, True), fill="#eef1ee")
     for name, x in (("RUA 4", 934), ("RUA 5", 828), ("RUA 6", 720), ("RUA 7", 615),
                     ("RUA 8", 507), ("RUA 9", 399), ("RUA 10", 293), ("RUA 11", 188)):
         draw_rotated_text(image, (x, 410), name)
 
     draw = ImageDraw.Draw(image, "RGBA")
+    # Fileiras geminadas, como na ocupação real, sem reutilizar o desenho técnico.
+    for quadra in "ABCDEFHIJ":
+        group = grouped[quadra]
+        maximum = max(item["numero"] for item in group)
+        if quadra in "AJ":
+            clusters = [group]
+        else:
+            split = maximum // 2
+            clusters = [
+                [item for item in group if item["numero"] <= split],
+                [item for item in group if item["numero"] > split],
+            ]
+        for cluster in clusters:
+            draw_roof_band(draw, cluster, "vertical")
+
+    draw_diagonal_roof_band(draw, grouped["G"])
+    draw_roof_band(draw, grouped["K"], "horizontal")
+    draw_roof_band(draw, grouped["L"], "horizontal")
+
     for index, quadra in enumerate("ABCDEFGHIJKL"):
         group = grouped[quadra]
         center_x = sum(item["x"] for item in group) / len(group)
@@ -380,17 +488,8 @@ def create_map() -> Image.Image:
         bounds = draw.textbbox((0, 0), label, font=label_font)
         draw.text(point(badge_x - (bounds[2] - bounds[0]) / SCALE / 2, badge_y - 3), label, font=label_font, fill=WHITE)
 
-        for house_index, house in enumerate(group):
-            x, y = house["x"], house["y"]
-            label = f"{quadra}{house['numero']}"
-            if quadra == "G":
-                draw_building(image, x, y, label, angle=-20, width=22, height=11, alternate=house_index % 2 == 0)
-            elif quadra in "KL":
-                draw_building(image, x, y, label, width=18, height=11, alternate=house_index % 2 == 0)
-            elif quadra == "J":
-                draw_building(image, x, y, label, width=24, height=14, alternate=house_index % 2 == 0)
-            else:
-                draw_building(image, x, y, label, width=24, height=13, alternate=house_index % 2 == 0)
+        for house in group:
+            draw_house_label(draw, house)
 
     draw = ImageDraw.Draw(image, "RGBA")
     draw_common_area(draw)
