@@ -24,21 +24,25 @@ MAP_HEIGHT = 841.92
 SCALE = 2
 
 INK = "#153b33"
-MUTED = "#668078"
-GREEN = "#1d7657"
+MUTED = "#66736f"
+GREEN = "#287a59"
 GREEN_DARK = "#12563f"
 ACCENT = "#ef6a3b"
-PAPER = "#edf4ee"
+PAPER = "#e8eee7"
 WHITE = "#fffdf8"
-ROAD_EDGE = "#c5ddcf"
-ROAD_CENTER = "#d7e7de"
-
-BLOCK_COLORS = (
-    ("#e3f1e9", "#8bb9a2"),
-    ("#fff0e8", "#e4a387"),
-    ("#e8f1f4", "#91b9c1"),
-    ("#f2eedf", "#c8b982"),
-)
+LAND = "#edf3e9"
+LOT = "#f6f4e9"
+LOT_EDGE = "#c8d3c9"
+SIDEWALK = "#f4f2ec"
+CURB = "#bcc5bf"
+ASPHALT = "#d5d9d7"
+ROAD_MARKING = "#f8faf8"
+BUILDING = "#eea080"
+BUILDING_ALT = "#f3b293"
+BUILDING_EDGE = "#b9684b"
+WATER = "#69c3dd"
+SAND = "#e8d39a"
+PARK = "#dcebd3"
 
 
 ROAD_NODES = {
@@ -139,16 +143,16 @@ def expanded_hull(points: list[tuple[float, float]], padding: float = 15) -> lis
 def draw_grid(draw: ImageDraw.ImageDraw) -> None:
     for x in range(50, 1151, 50):
         major = x % 100 == 0
-        color = "#cbded2" if major else "#dce9e1"
+        color = "#d0dcd3" if major else "#dce5de"
         draw.line((sc(x), 0, sc(x), sc(MAP_HEIGHT)), fill=color, width=sc(0.7 if major else 0.4))
         if major:
-            draw.text(point(x + 3, 38), f"X{x}", font=font(5.5, True), fill="#91a69b")
+            draw.text(point(x + 3, 38), f"X{x}", font=font(5.5, True), fill="#96a39d")
     for y in range(50, 801, 50):
         major = y % 100 == 0
-        color = "#cbded2" if major else "#dce9e1"
+        color = "#d0dcd3" if major else "#dce5de"
         draw.line((0, sc(y), sc(MAP_WIDTH), sc(y)), fill=color, width=sc(0.7 if major else 0.4))
         if major:
-            draw.text(point(30, y + 3), f"Y{y}", font=font(5.5, True), fill="#91a69b")
+            draw.text(point(30, y + 3), f"Y{y}", font=font(5.5, True), fill="#96a39d")
 
 
 def draw_rotated_text(base: Image.Image, position: tuple[float, float], text: str) -> None:
@@ -158,11 +162,154 @@ def draw_rotated_text(base: Image.Image, position: tuple[float, float], text: st
     height = bounds[3] - bounds[1] + sc(6)
     layer = Image.new("RGBA", (width, height), (255, 255, 255, 0))
     layer_draw = ImageDraw.Draw(layer)
-    layer_draw.rounded_rectangle((0, 0, width - 1, height - 1), radius=sc(3), fill=(255, 253, 248, 225))
-    layer_draw.text((sc(4), sc(2)), text, font=label_font, fill=GREEN_DARK)
+    layer_draw.text((sc(4), sc(2)), text, font=label_font, fill="#6f7975")
     rotated = layer.rotate(90, expand=True, resample=Image.Resampling.BICUBIC)
     x, y = point(*position)
     base.alpha_composite(rotated, (x - rotated.width // 2, y - rotated.height // 2))
+
+
+def dashed_line(
+    draw: ImageDraw.ImageDraw,
+    start: tuple[float, float],
+    end: tuple[float, float],
+    fill: str,
+    width: float = 1,
+    dash: float = 7,
+    gap: float = 7,
+) -> None:
+    length = math.dist(start, end)
+    if not length:
+        return
+    ux = (end[0] - start[0]) / length
+    uy = (end[1] - start[1]) / length
+    cursor = 0.0
+    while cursor < length:
+        finish = min(length, cursor + dash)
+        draw.line(
+            (
+                point(start[0] + ux * cursor, start[1] + uy * cursor),
+                point(start[0] + ux * finish, start[1] + uy * finish),
+            ),
+            fill=fill,
+            width=sc(width),
+        )
+        cursor += dash + gap
+
+
+def draw_tree(draw: ImageDraw.ImageDraw, x: float, y: float, size: float = 6) -> None:
+    center = point(x, y)
+    draw.ellipse(
+        (center[0] - sc(size + 1), center[1] - sc(size), center[0] + sc(size + 1), center[1] + sc(size + 2)),
+        fill=(48, 84, 62, 35),
+    )
+    draw.ellipse(
+        (center[0] - sc(size), center[1] - sc(size), center[0] + sc(size), center[1] + sc(size)),
+        fill="#4b9369",
+        outline="#2f7250",
+        width=sc(.7),
+    )
+    draw.ellipse(
+        (center[0] - sc(size * .45), center[1] - sc(size * .55), center[0] + sc(size * .1), center[1]),
+        fill="#82b98d",
+    )
+
+
+def draw_building(
+    image: Image.Image,
+    x: float,
+    y: float,
+    label: str,
+    angle: float = 0,
+    width: float = 23,
+    height: float = 12,
+    alternate: bool = False,
+) -> None:
+    roof_fill = BUILDING_ALT if alternate else BUILDING
+    pixel_width, pixel_height = sc(width + 4), sc(height + 4)
+    roof = Image.new("RGBA", (pixel_width, pixel_height), (255, 255, 255, 0))
+    roof_draw = ImageDraw.Draw(roof, "RGBA")
+    roof_draw.rounded_rectangle(
+        (sc(2.8), sc(3.2), pixel_width - sc(.8), pixel_height - sc(.8)),
+        radius=sc(2),
+        fill=(38, 54, 47, 42),
+    )
+    roof_draw.rounded_rectangle(
+        (sc(1.2), sc(1.2), pixel_width - sc(2.8), pixel_height - sc(2.8)),
+        radius=sc(1.8),
+        fill=roof_fill,
+        outline=BUILDING_EDGE,
+        width=sc(.8),
+    )
+    roof_draw.line(
+        (sc(width * .30), sc(2), sc(width * .30), pixel_height - sc(3.5)),
+        fill="#f9c5ac",
+        width=sc(.8),
+    )
+    if angle:
+        roof = roof.rotate(angle, expand=True, resample=Image.Resampling.BICUBIC)
+    px, py = point(x, y)
+    image.alpha_composite(roof, (px - roof.width // 2, py - roof.height // 2))
+
+    draw = ImageDraw.Draw(image, "RGBA")
+    label_font = font(5.2, True)
+    bounds = draw.textbbox((0, 0), label, font=label_font)
+    label_width = bounds[2] - bounds[0]
+    label_height = bounds[3] - bounds[1]
+    draw.rounded_rectangle(
+        (
+            px - label_width / 2 - sc(2.3),
+            py - label_height / 2 - sc(1.6),
+            px + label_width / 2 + sc(2.3),
+            py + label_height / 2 + sc(1.4),
+        ),
+        radius=sc(2.5),
+        fill=(255, 253, 248, 224),
+    )
+    draw.text((px - label_width / 2, py - label_height / 2 - sc(.7)), label, font=label_font, fill=INK)
+
+
+def draw_common_area(draw: ImageDraw.ImageDraw) -> None:
+    rounded(draw, (545, 70, 925, 179), 22, fill=PARK, outline="#afcaae", width=sc(1.2))
+
+    # Caminhos de pedestres.
+    draw.line((point(555, 161), point(913, 161)), fill="#f8f4e9", width=sc(10))
+    draw.line((point(740, 161), point(740, 83)), fill="#f8f4e9", width=sc(8))
+
+    # Piscina e deck.
+    rounded(draw, (739, 81, 793, 113), 8, fill="#eadfc9", outline="#d0bea3", width=sc(1))
+    rounded(draw, (746, 86, 786, 108), 6, fill=WATER, outline="#3f96b4", width=sc(1.2))
+    draw.arc(tuple(sc(value) for value in (755, 90, 778, 104)), 0, 180, fill="#c9f2fb", width=sc(1))
+
+    # Quadra poliesportiva.
+    rounded(draw, (650, 99, 705, 143), 5, fill="#7eb890", outline="#3f866b", width=sc(1.2))
+    draw.rectangle(tuple(sc(value) for value in (656, 105, 699, 137)), outline="#eaf5e9", width=sc(1))
+    draw.line((point(677.5, 105), point(677.5, 137)), fill="#eaf5e9", width=sc(.8))
+    draw.ellipse(tuple(sc(value) for value in (670, 113.5, 685, 128.5)), outline="#eaf5e9", width=sc(.8))
+
+    # Vôlei de areia.
+    rounded(draw, (610, 98, 642, 137), 6, fill=SAND, outline="#c6ab68", width=sc(1))
+    draw.line((point(626, 103), point(626, 132)), fill="#fff9e9", width=sc(1))
+
+    # Quiosque e clube.
+    rounded(draw, (566, 126, 598, 155), 7, fill="#d37c5e", outline="#a3543c", width=sc(1))
+    draw.polygon([point(563, 128), point(582, 114), point(601, 128)], fill="#b86145")
+    rounded(draw, (807, 87, 861, 134), 5, fill=BUILDING, outline=BUILDING_EDGE, width=sc(1.2))
+    draw.line((point(816, 96), point(852, 96)), fill="#f9c5ac", width=sc(1))
+
+    # Academia e estacionamento.
+    rounded(draw, (874, 106, 908, 143), 7, fill="#b9d6cf", outline="#6d9e92", width=sc(1))
+    for x in (880, 890, 900):
+        draw.line((point(x, 113), point(x, 136)), fill="#6d9e92", width=sc(1.4))
+    rounded(draw, (849, 146, 915, 174), 5, fill="#d9dddb", outline="#a9b1ad", width=sc(1))
+    for x in range(858, 911, 13):
+        draw.line((point(x, 150), point(x - 6, 169)), fill=WHITE, width=sc(.8))
+
+    for x, y, size in (
+        (554, 91, 7), (575, 88, 6), (602, 82, 7), (628, 79, 6),
+        (714, 80, 6), (726, 128, 7), (799, 76, 7), (870, 77, 6),
+        (897, 84, 7), (916, 94, 6), (915, 127, 6), (613, 158, 5),
+    ):
+        draw_tree(draw, x, y, size)
 
 
 def create_map() -> Image.Image:
@@ -175,31 +322,46 @@ def create_map() -> Image.Image:
     draw = ImageDraw.Draw(image, "RGBA")
     draw_grid(draw)
 
-    rounded(draw, (72, 55, 1118, 695), 34, fill="#f8fbf7", outline="#9fc5b0", width=sc(2))
+    # Limite esquemático da área navegável.
+    rounded(draw, (72, 55, 1118, 695), 34, fill=LAND, outline="#91b7a1", width=sc(2))
+    rounded(draw, (83, 66, 1107, 684), 27, outline=(255, 255, 255, 175), width=sc(1))
+
+    # Paisagismo de borda, inspirado na leitura visual de mapas urbanos.
+    for x, y, size in (
+        (92, 126, 7), (94, 154, 6), (96, 183, 7), (98, 214, 6),
+        (103, 246, 7), (108, 278, 6), (111, 311, 7), (1090, 219, 7),
+        (1090, 250, 6), (1091, 283, 7), (1091, 318, 6), (1092, 352, 7),
+        (1092, 389, 6), (1089, 426, 7), (1089, 465, 6), (1088, 505, 7),
+        (1088, 547, 6), (1086, 587, 7), (995, 660, 6), (1020, 659, 7),
+        (1046, 656, 6), (1072, 650, 7),
+    ):
+        draw_tree(draw, x, y, size)
 
     for index, quadra in enumerate("ABCDEFGHIJKL"):
         group = grouped[quadra]
         xs = [item["x"] for item in group]
         ys = [item["y"] for item in group]
-        fill, outline = BLOCK_COLORS[index % len(BLOCK_COLORS)]
         if max(xs) - min(xs) < 8 or max(ys) - min(ys) < 8:
             box = (min(xs) - 17, min(ys) - 16, max(xs) + 17, max(ys) + 16)
-            rounded(draw, box, 13, fill=fill, outline=outline, width=sc(1.2))
+            rounded(draw, box, 13, fill=LOT, outline=LOT_EDGE, width=sc(1.2))
         else:
             hull = expanded_hull([(item["x"], item["y"]) for item in group])
             polygon = [point(x, y) for x, y in hull]
-            draw.polygon(polygon, fill=fill)
-            draw.line(polygon + [polygon[0]], fill=outline, width=sc(1.2), joint="curve")
+            draw.polygon(polygon, fill=LOT)
+            draw.line(polygon + [polygon[0]], fill=LOT_EDGE, width=sc(1.2), joint="curve")
 
     road_segments = [(ROAD_NODES[a], ROAD_NODES[b]) for a, b in ROAD_EDGES]
     for start, end in road_segments:
-        draw.line((point(*start), point(*end)), fill=ROAD_EDGE, width=sc(36))
+        draw.line((point(*start), point(*end)), fill=CURB, width=sc(43))
     for start, end in road_segments:
-        draw.line((point(*start), point(*end)), fill=WHITE, width=sc(29))
-        draw.line((point(*start), point(*end)), fill=ROAD_CENTER, width=sc(1.3))
+        draw.line((point(*start), point(*end)), fill=SIDEWALK, width=sc(39))
+    for start, end in road_segments:
+        draw.line((point(*start), point(*end)), fill=ASPHALT, width=sc(29))
+        dashed_line(draw, start, end, ROAD_MARKING, width=.8, dash=6, gap=8)
 
-    draw.text(point(575, 181), "RUA 2", font=font(7, True), fill=GREEN_DARK)
-    draw.text(point(575, 591), "RUA 3", font=font(7, True), fill=GREEN_DARK)
+    draw.text(point(568, 188), "RUA 2", font=font(6.5, True), fill="#69736f")
+    draw.text(point(568, 572), "RUA 3", font=font(6.5, True), fill="#69736f")
+    draw.text(point(972, 181), "RUA 1", font=font(5.5, True), fill="#69736f")
     for name, x in (("RUA 4", 934), ("RUA 5", 828), ("RUA 6", 720), ("RUA 7", 615),
                     ("RUA 8", 507), ("RUA 9", 399), ("RUA 10", 293), ("RUA 11", 188)):
         draw_rotated_text(image, (x, 410), name)
@@ -208,40 +370,57 @@ def create_map() -> Image.Image:
     for index, quadra in enumerate("ABCDEFGHIJKL"):
         group = grouped[quadra]
         center_x = sum(item["x"] for item in group) / len(group)
-        center_y = sum(item["y"] for item in group) / len(group)
-        fill, outline = BLOCK_COLORS[index % len(BLOCK_COLORS)]
         badge_x = center_x
         badge_y = min(item["y"] for item in group) - 23
         if quadra in "G":
             badge_x, badge_y = 310, 170
-        rounded(draw, (badge_x - 20, badge_y - 8, badge_x + 20, badge_y + 8), 8, fill=INK)
+        rounded(draw, (badge_x - 20, badge_y - 8, badge_x + 20, badge_y + 8), 8, fill=(21, 59, 51, 236))
         label = f"QUADRA {quadra}"
         label_font = font(5.5, True)
         bounds = draw.textbbox((0, 0), label, font=label_font)
         draw.text(point(badge_x - (bounds[2] - bounds[0]) / SCALE / 2, badge_y - 3), label, font=label_font, fill=WHITE)
 
-        for house in group:
+        for house_index, house in enumerate(group):
             x, y = house["x"], house["y"]
             label = f"{quadra}{house['numero']}"
-            rounded(draw, (x - 10.5, y - 5.2, x + 10.5, y + 5.2), 4.8, fill=WHITE, outline=outline, width=sc(0.8))
-            house_font = font(5.4, True)
-            bounds = draw.textbbox((0, 0), label, font=house_font)
-            text_width = (bounds[2] - bounds[0]) / SCALE
-            draw.text(point(x - text_width / 2, y - 3.1), label, font=house_font, fill=INK)
+            if quadra == "G":
+                draw_building(image, x, y, label, angle=-20, width=22, height=11, alternate=house_index % 2 == 0)
+            elif quadra in "KL":
+                draw_building(image, x, y, label, width=18, height=11, alternate=house_index % 2 == 0)
+            elif quadra == "J":
+                draw_building(image, x, y, label, width=24, height=14, alternate=house_index % 2 == 0)
+            else:
+                draw_building(image, x, y, label, width=24, height=13, alternate=house_index % 2 == 0)
 
-    for index, (label, icon, x, y, color) in enumerate(POIS):
+    draw = ImageDraw.Draw(image, "RGBA")
+    draw_common_area(draw)
+
+    label_positions = {
+        "Piscina": (765, 80),
+        "Clube social": (830, 139),
+        "Quadra": (679, 105),
+        "Vôlei": (636, 137),
+        "Quiosque": (585, 123),
+        "Academia": (914, 151),
+        "Visitantes": (846, 166),
+    }
+
+    # Rótulos cartográficos das áreas comuns, com marcadores consistentes.
+    for label, icon, x, y, color in POIS:
         marker = point(x, y)
-        draw.ellipse((marker[0] - sc(8), marker[1] - sc(8), marker[0] + sc(8), marker[1] + sc(8)), fill=color, outline=WHITE, width=sc(2))
-        icon_font = font(6, True)
+        draw.ellipse((marker[0] - sc(7), marker[1] - sc(7), marker[0] + sc(7), marker[1] + sc(7)), fill=color, outline=WHITE, width=sc(2))
+        icon_font = font(5.6, True)
         bounds = draw.textbbox((0, 0), icon, font=icon_font)
         draw.text((marker[0] - (bounds[2] - bounds[0]) / 2, marker[1] - sc(3.3)), icon, font=icon_font, fill=WHITE)
-        offset_y = -23 if index % 2 == 0 else 13
+        label_x, label_y = label_positions[label]
+        if math.dist((x, y), (label_x, label_y)) > 18:
+            draw.line((point(x, y), point(label_x, label_y)), fill=(77, 95, 87, 115), width=sc(.7))
         label_width = max(43, len(label) * 3.8)
-        rounded(draw, (x - label_width / 2, y + offset_y - 6, x + label_width / 2, y + offset_y + 6), 5.5, fill=(255, 253, 248, 235), outline=color, width=sc(0.8))
+        rounded(draw, (label_x - label_width / 2, label_y - 6, label_x + label_width / 2, label_y + 6), 5.5, fill=(255, 253, 248, 235), outline=color, width=sc(0.8))
         poi_font = font(5.2, True)
         bounds = draw.textbbox((0, 0), label, font=poi_font)
         text_width = (bounds[2] - bounds[0]) / SCALE
-        draw.text(point(x - text_width / 2, y + offset_y - 3), label, font=poi_font, fill=INK)
+        draw.text(point(label_x - text_width / 2, label_y - 3), label, font=poi_font, fill=INK)
 
     port_x, port_y = ROAD_NODES["portaria"]
     port = point(port_x, port_y)
@@ -250,11 +429,18 @@ def create_map() -> Image.Image:
     rounded(draw, (1029, 165, 1091, 194), 12, fill=INK)
     draw.text(point(1040, 171), "PORTARIA", font=font(7, True), fill=WHITE)
 
-    rounded(draw, (82, 64, 365, 116), 15, fill=(21, 59, 51, 238))
-    draw.text(point(101, 78), "MAPA ESQUEMÁTICO", font=font(11, True), fill=WHITE)
-    draw.text(point(101, 98), "ORIENTAÇÃO POR COORDENADAS X/Y", font=font(5.7, True), fill="#bce5d3")
+    # Cabine, cancela e acesso principal.
+    rounded(draw, (1000, 155, 1012, 174), 3, fill=BUILDING, outline=BUILDING_EDGE, width=sc(1))
+    draw.line((point(1010, 181), point(1031, 181)), fill="#d9533f", width=sc(2))
+    draw.ellipse(tuple(sc(value) for value in (1028, 178, 1034, 184)), fill=WHITE, outline="#9ea7a3", width=sc(.7))
 
-    rounded(draw, (808, 650, 1097, 681), 11, fill=(255, 253, 248, 230), outline="#b7cfc2", width=sc(0.8))
+    rounded(draw, (82, 64, 337, 111), 14, fill=(255, 253, 248, 242), outline="#b8c7be", width=sc(.8))
+    draw.ellipse(tuple(sc(value) for value in (96, 76, 119, 99)), fill=INK)
+    draw.text(point(103, 82), "JP", font=font(6.2, True), fill=WHITE)
+    draw.text(point(130, 75), "MAPA DE NAVEGAÇÃO", font=font(9, True), fill=INK)
+    draw.text(point(130, 94), "COORDENADAS X/Y • SEM GPS", font=font(5.5, True), fill=GREEN)
+
+    rounded(draw, (808, 650, 1097, 681), 11, fill=(255, 253, 248, 235), outline="#b7cfc2", width=sc(0.8))
     draw.text(point(824, 659), "Representação funcional • sem escala técnica", font=font(6.2, True), fill=MUTED)
     return image.convert("RGB")
 

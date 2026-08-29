@@ -125,10 +125,10 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 .condo-map { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; user-select: none; }
 .condo-map:active { cursor: grabbing; }
 .condo-map image { opacity: 1; }
-.road-network line { stroke: rgba(29, 118, 87, .18); stroke-width: 2.2; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke; }
+.road-network line { stroke: rgba(29, 118, 87, .08); stroke-width: 1.7; stroke-dasharray: 4 8; vector-effect: non-scaling-stroke; }
 .house-target { cursor: pointer; outline: none; }
 .house-hit-area { fill: transparent; pointer-events: all; }
-.house-point { fill: rgba(29, 118, 87, .09); stroke: rgba(29, 118, 87, .48); stroke-width: 1; transition: fill .15s, stroke .15s; vector-effect: non-scaling-stroke; pointer-events: none; }
+.house-point { fill: transparent; stroke: transparent; stroke-width: 1; transition: fill .15s, stroke .15s; vector-effect: non-scaling-stroke; pointer-events: none; }
 .house-target:focus-visible .house-point { fill: rgba(29, 118, 87, .72); stroke: white; stroke-width: 2; }
 .house-point.quadra-selected { fill: rgba(29, 118, 87, .44); }
 .house-point.selected { fill: var(--accent); stroke: white; stroke-width: 2; }
