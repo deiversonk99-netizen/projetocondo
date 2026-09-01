@@ -323,6 +323,7 @@ export default function CondoMap() {
   const [message, setMessage] = useState("Adicione um ou mais destinos para traçar a melhor rota.");
   const [viewBox, setViewBox] = useState<ViewBox>(INITIAL_VIEW);
   const [gpsStatus, setGpsStatus] = useState<GpsStatus>("idle");
+  const [gpsTrackingRequested, setGpsTrackingRequested] = useState(false);
   const [gpsError, setGpsError] = useState("");
   const [gpsFix, setGpsFix] = useState<GeoFix | null>(null);
   const [gpsCalibration, setGpsCalibration] = useState<GpsCalibration | null>(null);
@@ -336,7 +337,9 @@ export default function CondoMap() {
   const calibrationDialogRef = useRef<HTMLDialogElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const gpsWatchIdRef = useRef<number | null>(null);
-  const gpsCalibrationRef = useRef<GpsCalibration | null>(null);
+  const gpsStartupTimerRef = useRef<number | null>(null);
+  const gpsTrackingRequestedRef = useRef(false);
+  const latestGpsFixRef = useRef<GeoFix | null>(null);
   const gpsSamplesRef = useRef<GeoFix[]>([]);
   const lastGpsRouteUpdateRef = useRef<{ point: Point; timestamp: number } | null>(null);
   const pointers = useRef(new Map<number, Point>());
@@ -353,8 +356,14 @@ export default function CondoMap() {
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
+      if (!window.isSecureContext) {
+        setGpsStatus("unsupported");
+        setGpsError("O GPS exige uma conexão segura (HTTPS). Abra o endereço publicado do aplicativo.");
+        return;
+      }
       if (!("geolocation" in navigator)) {
         setGpsStatus("unsupported");
+        setGpsError("Este navegador não oferece acesso à localização.");
         return;
       }
 
@@ -363,7 +372,6 @@ export default function CondoMap() {
         if (!savedCalibration) return;
         const parsedCalibration: unknown = JSON.parse(savedCalibration);
         if (isGpsCalibration(parsedCalibration)) {
-          gpsCalibrationRef.current = parsedCalibration;
           setGpsCalibration(parsedCalibration);
         }
       } catch {
@@ -374,8 +382,12 @@ export default function CondoMap() {
   }, []);
 
   useEffect(() => () => {
+    gpsTrackingRequestedRef.current = false;
     if (gpsWatchIdRef.current !== null && "geolocation" in navigator) {
       navigator.geolocation.clearWatch(gpsWatchIdRef.current);
+    }
+    if (gpsStartupTimerRef.current !== null) {
+      window.clearTimeout(gpsStartupTimerRef.current);
     }
   }, []);
 
@@ -463,56 +475,127 @@ export default function CondoMap() {
     if (dialog && !dialog.open) dialog.showModal();
   };
 
-  const startGpsTracking = (openCalibrationWhenMissing = true) => {
+  const clearGpsStartupTimer = () => {
+    if (gpsStartupTimerRef.current !== null) {
+      window.clearTimeout(gpsStartupTimerRef.current);
+      gpsStartupTimerRef.current = null;
+    }
+  };
+
+  const acceptGpsPosition = (position: GeolocationPosition) => {
+    if (!gpsTrackingRequestedRef.current) return;
+
+    const nextFix: GeoFix = {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      accuracy: position.coords.accuracy,
+      timestamp: position.timestamp,
+    };
+    latestGpsFixRef.current = nextFix;
+    gpsSamplesRef.current = [...gpsSamplesRef.current, nextFix]
+      .filter((fix) => Date.now() - fix.timestamp <= 15_000)
+      .slice(-8);
+    clearGpsStartupTimer();
+    setGpsFix(nextFix);
+    setGpsStatus("tracking");
+    setGpsError("");
+  };
+
+  const finishGpsAttempt = (errorMessage: string) => {
+    gpsTrackingRequestedRef.current = false;
+    setGpsTrackingRequested(false);
+    clearGpsStartupTimer();
+    if (gpsWatchIdRef.current !== null && "geolocation" in navigator) {
+      navigator.geolocation.clearWatch(gpsWatchIdRef.current);
+    }
+    gpsWatchIdRef.current = null;
+    setGpsStatus("error");
+    setGpsError(errorMessage);
+  };
+
+  const handleGpsError = (error: GeolocationPositionError) => {
+    if (!gpsTrackingRequestedRef.current) return;
+
+    if (error.code === error.PERMISSION_DENIED) {
+      finishGpsAttempt(geolocationErrorMessage(error));
+      return;
+    }
+
+    if (latestGpsFixRef.current) {
+      setGpsStatus("tracking");
+      setGpsError("Sinal temporariamente instável. Mantendo a última posição recebida.");
+      return;
+    }
+
+    setGpsStatus("requesting");
+    setGpsError(
+      error.code === error.TIMEOUT
+        ? "Ainda procurando o sinal. Mantenha a tela aberta e confirme se a Localização do celular está ativada."
+        : geolocationErrorMessage(error),
+    );
+  };
+
+  const startGpsTracking = () => {
+    if (!window.isSecureContext) {
+      setGpsStatus("unsupported");
+      setGpsError("O GPS exige HTTPS. Abra o endereço publicado do aplicativo.");
+      return;
+    }
     if (!("geolocation" in navigator)) {
       setGpsStatus("unsupported");
       setGpsError("Este navegador não oferece acesso à localização.");
       return;
     }
-    if (gpsWatchIdRef.current !== null) {
-      if (!gpsCalibration && openCalibrationWhenMissing) openCalibrationDialog();
-      return;
-    }
+    if (gpsTrackingRequestedRef.current) return;
 
+    gpsTrackingRequestedRef.current = true;
+    setGpsTrackingRequested(true);
     setGpsStatus("requesting");
     setGpsError("");
-    gpsWatchIdRef.current = navigator.geolocation.watchPosition(
-      (position) => {
-        const nextFix: GeoFix = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          accuracy: position.coords.accuracy,
-          timestamp: position.timestamp,
-        };
-        gpsSamplesRef.current = [...gpsSamplesRef.current, nextFix]
-          .filter((fix) => Date.now() - fix.timestamp <= 15_000)
-          .slice(-8);
-        setGpsFix(nextFix);
-        setGpsStatus(gpsCalibrationRef.current ? "tracking" : "requesting");
-      },
+    latestGpsFixRef.current = null;
+
+    // A leitura rápida aceita uma posição recente do aparelho, enquanto o watch
+    // de alta precisão continua refinando o ponto para a navegação interna.
+    navigator.geolocation.getCurrentPosition(
+      acceptGpsPosition,
       (error) => {
-        setGpsStatus("error");
-        setGpsError(geolocationErrorMessage(error));
-        if (gpsWatchIdRef.current !== null) {
-          navigator.geolocation.clearWatch(gpsWatchIdRef.current);
-          gpsWatchIdRef.current = null;
-        }
+        if (error.code === error.PERMISSION_DENIED) handleGpsError(error);
       },
       {
-        enableHighAccuracy: true,
-        maximumAge: 2_000,
-        timeout: 15_000,
+        enableHighAccuracy: false,
+        maximumAge: 60_000,
+        timeout: 12_000,
       },
     );
 
-    if (!gpsCalibration && openCalibrationWhenMissing) openCalibrationDialog();
+    gpsWatchIdRef.current = navigator.geolocation.watchPosition(
+      acceptGpsPosition,
+      handleGpsError,
+      {
+        enableHighAccuracy: true,
+        maximumAge: 15_000,
+        timeout: 30_000,
+      },
+    );
+
+    gpsStartupTimerRef.current = window.setTimeout(() => {
+      if (gpsTrackingRequestedRef.current && !latestGpsFixRef.current) {
+        finishGpsAttempt(
+          "Não recebemos uma localização em 45 segundos. Ative a Localização do celular, permita o acesso para este site e tente novamente em uma área aberta.",
+        );
+      }
+    }, 45_000);
   };
 
   const stopGpsTracking = () => {
+    gpsTrackingRequestedRef.current = false;
+    setGpsTrackingRequested(false);
+    clearGpsStartupTimer();
     if (gpsWatchIdRef.current !== null && "geolocation" in navigator) {
       navigator.geolocation.clearWatch(gpsWatchIdRef.current);
     }
     gpsWatchIdRef.current = null;
+    latestGpsFixRef.current = null;
     gpsSamplesRef.current = [];
     lastGpsRouteUpdateRef.current = null;
     setGpsStatus("idle");
@@ -526,7 +609,7 @@ export default function CondoMap() {
 
   const beginCalibration = () => {
     openCalibrationDialog();
-    startGpsTracking(false);
+    startGpsTracking();
   };
 
   const captureCalibrationAnchor = () => {
@@ -568,7 +651,6 @@ export default function CondoMap() {
 
     try {
       const nextCalibration = createCalibration(draftAnchors[0], anchor);
-      gpsCalibrationRef.current = nextCalibration;
       setGpsCalibration(nextCalibration);
       window.localStorage.setItem(GPS_CALIBRATION_STORAGE_KEY, JSON.stringify(nextCalibration));
       setDraftAnchors([draftAnchors[0], anchor]);
@@ -581,7 +663,6 @@ export default function CondoMap() {
 
   const clearGpsCalibration = () => {
     window.localStorage.removeItem(GPS_CALIBRATION_STORAGE_KEY);
-    gpsCalibrationRef.current = null;
     setGpsCalibration(null);
     setDraftAnchors([]);
     setGpsOriginEnabled(false);
@@ -597,7 +678,7 @@ export default function CondoMap() {
     }
     if (!liveLocation) {
       setMessage("Aguardando uma posição válida do GPS.");
-      startGpsTracking(false);
+      startGpsTracking();
       return;
     }
 
@@ -781,18 +862,18 @@ export default function CondoMap() {
 
   const selectedIds = new Set(selectedLocations.map((location) => location?.id));
   const mappedDestinations = route?.destinations ?? destinations;
-  const gpsIsRunning = gpsStatus === "requesting" || gpsStatus === "tracking";
+  const gpsIsRunning = gpsTrackingRequested;
   const gpsDisplayError = gpsError || gpsProjection.error;
   const gpsStatusLabel = gpsProjection.error
     ? "Falha na calibração"
     : gpsStatus === "unsupported"
     ? "GPS indisponível"
-    : gpsStatus === "error"
-      ? "Falha no GPS"
+      : gpsStatus === "error"
+      ? gpsTrackingRequested ? "Procurando sinal" : "Falha no GPS"
       : gpsStatus === "requesting"
-        ? gpsCalibration ? "Buscando posição" : "Calibração necessária"
+        ? "Conectando ao GPS"
         : gpsStatus === "tracking"
-          ? "GPS em tempo real"
+          ? gpsCalibration ? "GPS em tempo real" : "GPS conectado"
           : gpsCalibration
             ? "GPS pronto"
             : "GPS não configurado";
@@ -915,8 +996,16 @@ export default function CondoMap() {
                 <span className={`gps-state-dot gps-state-${gpsStatus}`} aria-hidden="true" />
                 {gpsFix
                   ? `Sinal recebido • precisão ±${Math.round(gpsFix.accuracy)} m`
-                  : "Aguardando sinal do GPS…"}
+                  : gpsStatus === "error"
+                    ? "Sinal do GPS ainda não recebido"
+                    : "Aguardando sinal do GPS…"}
               </div>
+              {gpsError && <p className="gps-calibration-error" role="alert">{gpsError}</p>}
+              {gpsStatus === "error" && !gpsIsRunning && (
+                <button className="gps-retry-button" type="button" onClick={startGpsTracking}>
+                  Tentar conectar novamente
+                </button>
+              )}
               <button
                 className="gps-capture-button"
                 type="button"
@@ -991,7 +1080,7 @@ export default function CondoMap() {
                   <span className={`gps-state-dot gps-state-${gpsStatus}`} aria-hidden="true" />
                   <strong>{gpsStatusLabel}</strong>
                 </div>
-                {liveMapPosition && <span>±{Math.round(liveMapPosition.accuracyInMeters)} m</span>}
+                {gpsFix && <span>±{Math.round(gpsFix.accuracy)} m</span>}
               </div>
 
               <p>
@@ -999,6 +1088,12 @@ export default function CondoMap() {
                   ? liveMapPosition.matchedToRoad && liveMapPosition.street
                     ? `Posição ajustada para ${liveMapPosition.street}.`
                     : "Posição recebida; aguardando aproximação da malha de ruas."
+                  : gpsFix
+                    ? "GPS conectado. Agora calibre o mapa para converter a posição em coordenadas X/Y."
+                  : gpsTrackingRequested
+                    ? "Buscando a primeira posição do celular. Isso pode levar alguns segundos em local fechado."
+                  : gpsStatus === "error" || gpsStatus === "unsupported"
+                    ? "O aparelho ainda não forneceu uma posição para o aplicativo."
                   : gpsCalibration
                     ? "Ative o GPS para acompanhar sua posição no mapa."
                     : "Calibre dois pontos para relacionar latitude/longitude ao mapa X/Y."}
@@ -1006,9 +1101,15 @@ export default function CondoMap() {
 
               {gpsDisplayError && <p className="gps-error" role="alert">{gpsDisplayError}</p>}
 
+              {(gpsStatus === "error" || gpsStatus === "unsupported") && (
+                <p className="gps-mobile-help">
+                  No celular, confirme que a Localização está ativada e que Safari ou Chrome tem permissão para este site.
+                </p>
+              )}
+
               <div className="gps-tracking-actions">
                 <button type="button" onClick={() => gpsIsRunning ? stopGpsTracking() : startGpsTracking()}>
-                  {gpsIsRunning ? "Pausar GPS" : "Ativar GPS"}
+                  {gpsIsRunning ? "Pausar GPS" : gpsStatus === "error" ? "Tentar novamente" : "Ativar GPS"}
                 </button>
                 <button type="button" onClick={beginCalibration}>
                   {gpsCalibration ? "Recalibrar" : "Calibrar"}

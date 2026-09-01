@@ -69,7 +69,9 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 .gps-calibration-form select { width: 100%; min-height: 48px; padding: 10px 38px 10px 12px; border: 1px solid #cbdbe9; border-radius: 12px; outline: 0; background: white; color: var(--ink); font-size: 14px; font-weight: 800; }
 .gps-calibration-form select:focus { border-color: var(--gps); box-shadow: 0 0 0 3px rgba(36, 119, 212, .12); }
 .gps-reading { display: flex; align-items: center; gap: 7px; min-height: 32px; padding: 6px 9px; border-radius: 9px; background: var(--gps-soft); color: #456784; font-size: 10px; font-weight: 700; }
+.gps-calibration-error { margin: 0; color: #a84634; font-size: 10px; line-height: 1.45; }
 .gps-capture-button, .gps-finish-button { min-height: 48px; padding: 11px 15px; border: 0; border-radius: 12px; background: var(--gps); color: white; font-weight: 900; cursor: pointer; }
+.gps-retry-button { min-height: 44px; border: 1px solid #cdddeb; border-radius: 11px; background: white; color: #315b7c; font: inherit; font-size: 11px; font-weight: 900; cursor: pointer; }
 .gps-capture-button:disabled, .gps-finish-button:disabled { opacity: .45; cursor: not-allowed; }
 .gps-calibration-message { min-height: 32px; margin: 12px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
 .gps-calibration-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 12px; }
@@ -107,7 +109,7 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 .picker-input-row input::placeholder { color: #94a29d; font-weight: 600; }
 .picker-input-row input::-webkit-search-cancel-button { display: none; }
 .clear-field { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; margin: -5px -5px -5px 4px; border: 0; border-radius: 50%; background: transparent; color: #7f918a; font-size: 20px; line-height: 1; cursor: pointer; }
-.clear-field:focus-visible, .delivery-list button:focus-visible, .add-destination-button:focus-visible, .primary-button:focus-visible, .map-actions button:focus-visible, .welcome-close:focus-visible, .welcome-start:focus-visible, .gps-tracking-actions button:focus-visible, .gps-capture-button:focus-visible, .gps-finish-button:focus-visible, .gps-text-button:focus-visible { outline: 3px solid rgba(29, 118, 87, .28); outline-offset: 2px; }
+.clear-field:focus-visible, .delivery-list button:focus-visible, .add-destination-button:focus-visible, .primary-button:focus-visible, .map-actions button:focus-visible, .welcome-close:focus-visible, .welcome-start:focus-visible, .gps-tracking-actions button:focus-visible, .gps-capture-button:focus-visible, .gps-finish-button:focus-visible, .gps-text-button:focus-visible, .gps-retry-button:focus-visible { outline: 3px solid rgba(29, 118, 87, .28); outline-offset: 2px; }
 .dot { display: inline-block; width: 9px; height: 9px; flex: 0 0 auto; border-radius: 50%; }
 .dot-origin { background: var(--green); }
 .dot-destination { background: var(--accent); }
@@ -120,6 +122,7 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 .gps-tracking-heading > span { padding: 3px 7px; border-radius: 999px; background: white; color: var(--gps); font-size: 9px; font-weight: 900; }
 .gps-tracking-card > p { margin: 0; color: #557080; font-size: 10px; line-height: 1.45; }
 .gps-tracking-card .gps-error { color: #a84634; }
+.gps-tracking-card .gps-mobile-help { padding-top: 7px; border-top: 1px solid #d9e5ee; color: #526975; font-size: 9px; }
 .gps-state-dot { display: inline-block; width: 9px; height: 9px; flex: 0 0 auto; border-radius: 50%; background: #9aa9a3; }
 .gps-state-requesting { background: #e39a32; animation: gps-status-pulse 1.4s ease-in-out infinite; }
 .gps-state-tracking { background: var(--gps); box-shadow: 0 0 0 3px rgba(36, 119, 212, .14); }
