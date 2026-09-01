@@ -10,11 +10,15 @@ vermelhas foram uniformizadas em preto, preservando ruas, quadras, lotes e numer
 A limpeza é reproduzível pelo script `scripts/optimize_floor_plan_svg.py`. Ela reduz a complexidade
 e o tamanho do arquivo sem alterar as coordenadas funcionais usadas pelo sistema de roteirização.
 
-A busca e a roteirização não dependem da geolocalização do aparelho nem das entidades internas do
-arquivo SVG. Elas usam dados funcionais próprios:
+A busca e a roteirização usam dados funcionais próprios e não dependem das entidades internas do
+arquivo SVG:
 
 - identificação e coordenadas X/Y das casas em `src/data/houses.json`;
 - pontos de interesse, nós e conexões das ruas em `src/data/map.ts`.
+
+Opcionalmente, o usuário pode autorizar o GPS. Dois pontos conhecidos relacionam latitude/longitude
+às coordenadas X/Y; as leituras seguintes são convertidas e ajustadas à rua mais próxima. A calibração
+fica no armazenamento local do navegador e as coordenadas não são enviadas para um servidor pelo app.
 
 ## Autoria e autorização
 
@@ -28,4 +32,6 @@ incluindo permissão para uso digital, adaptação visual, hospedagem e divulga�
 O mapa serve somente para orientação interna e roteirização por coordenadas. Não é projeto
 arquitetônico, levantamento topográfico nem representação em escala técnica. Sentidos de circulação,
 acessos e caminhos permitidos devem ser conferidos no local.
+O rastreamento GPS é um auxílio sujeito à precisão informada pelo aparelho e não substitui a
+confirmação visual da posição dentro do condomínio.
 
