@@ -13,13 +13,14 @@ O mapa foi criado para ficar disponível pela web, sem cadastro ou login. A loca
 - Seleção de casa diretamente no mapa.
 - Roteamento com até 20 destinos, usando partida manual ou GPS calibrado.
 - Rastreamento híbrido: latitude/longitude convertidas para X/Y e ajustadas à rua mais próxima.
-- Calibração por dois pontos conhecidos, salva somente no aparelho do usuário.
+- Coordenadas GPS exibidas em tempo real, com opção de cópia para conferência.
+- Calibração por duas casas ou áreas comuns conhecidas, salva somente no aparelho do usuário.
 - Exibição da precisão informada pelo GPS e atualização contínua da rota ativa.
 - Otimização automática da ordem das paradas.
 - Instruções e distância de cada trecho pela sequência de ruas.
 - Zoom, movimentação e destaque visual da rota.
 - Layout responsivo para celular e computador.
-- Página estática, sem banco de dados ou serviço externo.
+- Página estática, sem banco de dados, Google Maps ou API externa.
 
 ## Executar localmente
 

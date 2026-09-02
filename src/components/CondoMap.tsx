@@ -70,21 +70,7 @@ const quadras: MapLocation[] = "ABCDEFGHIJKL".split("").map((quadra) => {
 const allLocations = [...pointsOfInterest, ...quadras, ...houses];
 const featuredLocations = [pointsOfInterest[0], ...quadras, ...pointsOfInterest.slice(1)];
 const roadNodeIndex = new Map(roadNodes.map((node) => [node.id, node]));
-const calibrationLocationIds = [
-  "portaria",
-  "quadra-poliesportiva",
-  "piscina",
-  "clube-social",
-  "quiosque",
-  "academia",
-  "A18",
-  "G20",
-  "J1",
-  "L1",
-];
-const calibrationLocations = calibrationLocationIds
-  .map((id) => allLocations.find((location) => location.id === id))
-  .filter((location): location is MapLocation => Boolean(location));
+const calibrationLocations = [...pointsOfInterest, ...houses];
 
 function resolveLocation(rawValue: string): MapLocation | null {
   const value = normalize(rawValue);
@@ -188,6 +174,10 @@ function averageGeoFixes(fixes: GeoFix[]) {
     accuracy: Math.min(...recentFixes.map((fix) => fix.accuracy)),
     timestamp: Math.max(...recentFixes.map((fix) => fix.timestamp)),
   } satisfies GeoFix;
+}
+
+function formatCoordinate(value: number) {
+  return value.toFixed(7);
 }
 
 type LocationPickerProps = {
@@ -325,6 +315,7 @@ export default function CondoMap() {
   const [gpsStatus, setGpsStatus] = useState<GpsStatus>("idle");
   const [gpsTrackingRequested, setGpsTrackingRequested] = useState(false);
   const [gpsError, setGpsError] = useState("");
+  const [coordinateCopyStatus, setCoordinateCopyStatus] = useState("");
   const [gpsFix, setGpsFix] = useState<GeoFix | null>(null);
   const [gpsCalibration, setGpsCalibration] = useState<GpsCalibration | null>(null);
   const [gpsOriginEnabled, setGpsOriginEnabled] = useState(false);
@@ -497,6 +488,7 @@ export default function CondoMap() {
       .slice(-8);
     clearGpsStartupTimer();
     setGpsFix(nextFix);
+    setCoordinateCopyStatus("");
     setGpsStatus("tracking");
     setGpsError("");
   };
@@ -612,6 +604,17 @@ export default function CondoMap() {
     startGpsTracking();
   };
 
+  const copyCurrentCoordinates = async () => {
+    if (!gpsFix) return;
+    const coordinates = `${formatCoordinate(gpsFix.latitude)}, ${formatCoordinate(gpsFix.longitude)}`;
+    try {
+      await navigator.clipboard.writeText(coordinates);
+      setCoordinateCopyStatus("Coordenadas copiadas");
+    } catch {
+      setCoordinateCopyStatus("Não foi possível copiar automaticamente");
+    }
+  };
+
   const captureCalibrationAnchor = () => {
     const calibrationFix = averageGeoFixes(gpsSamplesRef.current);
     if (!calibrationFix) {
@@ -686,6 +689,7 @@ export default function CondoMap() {
     setActiveField("origin");
     setRoute(null);
     setMessage("Sua localização em tempo real será usada como ponto de partida.");
+    locateGpsOnMap();
   };
 
   const locateGpsOnMap = () => {
@@ -959,8 +963,8 @@ export default function CondoMap() {
           <p className="welcome-eyebrow">GPS + coordenadas X/Y</p>
           <h2 id="gps-calibration-title">Calibrar o mapa</h2>
           <p id="gps-calibration-description" className="gps-calibration-description">
-            Registre o GPS estando exatamente em dois locais conhecidos. Faça isso uma única vez neste aparelho,
-            preferencialmente em pontos afastados e em área aberta.
+            Escolha abaixo o local onde você está e registre o primeiro ponto. Depois vá até outro local conhecido,
+            distante pelo menos 20 metros, e registre o segundo. Isso é feito uma única vez neste aparelho.
           </p>
 
           <div className="gps-calibration-progress" aria-label={`${draftAnchors.length} de 2 pontos registrados`}>
@@ -975,6 +979,7 @@ export default function CondoMap() {
                 <li key={anchor.locationId}>
                   <strong>{anchor.label}</strong>
                   <small>Precisão registrada: ±{Math.round(anchor.accuracy)} m</small>
+                  <small>{formatCoordinate(anchor.latitude)}, {formatCoordinate(anchor.longitude)}</small>
                 </li>
               ))}
             </ol>
@@ -988,9 +993,16 @@ export default function CondoMap() {
                 value={calibrationLocationId}
                 onChange={(event) => setCalibrationLocationId(event.target.value)}
               >
-                {calibrationLocations.map((location) => (
-                  <option key={location.id} value={location.id}>{location.label}</option>
-                ))}
+                <optgroup label="Áreas comuns">
+                  {pointsOfInterest.map((location) => (
+                    <option key={location.id} value={location.id}>{location.label}</option>
+                  ))}
+                </optgroup>
+                <optgroup label="Casas">
+                  {houses.map((location) => (
+                    <option key={location.id} value={location.id}>{location.label}</option>
+                  ))}
+                </optgroup>
               </select>
               <div className="gps-reading">
                 <span className={`gps-state-dot gps-state-${gpsStatus}`} aria-hidden="true" />
@@ -1000,6 +1012,21 @@ export default function CondoMap() {
                     ? "Sinal do GPS ainda não recebido"
                     : "Aguardando sinal do GPS…"}
               </div>
+              {gpsFix && (
+                <div className="gps-coordinate-box" aria-label="Coordenadas atuais do GPS">
+                  <div>
+                    <span>Latitude</span>
+                    <strong>{formatCoordinate(gpsFix.latitude)}</strong>
+                  </div>
+                  <div>
+                    <span>Longitude</span>
+                    <strong>{formatCoordinate(gpsFix.longitude)}</strong>
+                  </div>
+                  <button type="button" onClick={copyCurrentCoordinates}>
+                    {coordinateCopyStatus === "Coordenadas copiadas" ? "Copiado" : "Copiar coordenadas"}
+                  </button>
+                </div>
+              )}
               {gpsError && <p className="gps-calibration-error" role="alert">{gpsError}</p>}
               {gpsStatus === "error" && !gpsIsRunning && (
                 <button className="gps-retry-button" type="button" onClick={startGpsTracking}>
@@ -1029,9 +1056,12 @@ export default function CondoMap() {
               className="gps-finish-button"
               type="button"
               disabled={draftAnchors.length < 2 && !gpsCalibration}
-              onClick={() => calibrationDialogRef.current?.close()}
+              onClick={() => {
+                calibrationDialogRef.current?.close();
+                activateGpsOrigin();
+              }}
             >
-              {draftAnchors.length >= 2 ? "Concluir" : "Usar calibração salva"}
+              {draftAnchors.length >= 2 ? "Localizar no mapa" : "Usar calibração salva"}
             </button>
           </div>
         </div>
@@ -1098,6 +1128,19 @@ export default function CondoMap() {
                     ? "Ative o GPS para acompanhar sua posição no mapa."
                     : "Calibre dois pontos para relacionar latitude/longitude ao mapa X/Y."}
               </p>
+
+              {gpsFix && (
+                <div className="gps-live-coordinates" aria-label="Coordenadas capturadas">
+                  <span>{formatCoordinate(gpsFix.latitude)}, {formatCoordinate(gpsFix.longitude)}</span>
+                  <button type="button" onClick={copyCurrentCoordinates}>
+                    {coordinateCopyStatus === "Coordenadas copiadas" ? "Copiado" : "Copiar"}
+                  </button>
+                </div>
+              )}
+
+              {coordinateCopyStatus && coordinateCopyStatus !== "Coordenadas copiadas" && (
+                <p className="gps-error" role="status">{coordinateCopyStatus}</p>
+              )}
 
               {gpsDisplayError && <p className="gps-error" role="alert">{gpsDisplayError}</p>}
 

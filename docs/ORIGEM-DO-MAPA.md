@@ -18,7 +18,8 @@ arquivo SVG:
 
 Opcionalmente, o usuário pode autorizar o GPS. Dois pontos conhecidos relacionam latitude/longitude
 às coordenadas X/Y; as leituras seguintes são convertidas e ajustadas à rua mais próxima. A calibração
-fica no armazenamento local do navegador e as coordenadas não são enviadas para um servidor pelo app.
+fica no armazenamento local do navegador, as coordenadas podem ser conferidas na interface e não são
+enviadas para um servidor pelo app. Esse fluxo não utiliza Google Maps nem outra API cartográfica.
 
 ## Autoria e autorização
 
