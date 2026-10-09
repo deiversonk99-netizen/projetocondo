@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import {
   useEffect,
   useMemo,
@@ -36,9 +37,20 @@ import {
   type GpsCalibration,
 } from "@/lib/gpsTracking";
 
+const Condo3D = dynamic(() => import("@/components/Condo3D"), {
+  ssr: false,
+  loading: () => (
+    <div className="condo-3d-loading" role="status">
+      <span />
+      <strong>Preparando o condomínio em 3D…</strong>
+    </div>
+  ),
+});
+
 type HouseRecord = { id: string; label: string; quadra: string; numero: number; x: number; y: number };
 type ViewBox = { x: number; y: number; width: number; height: number };
 type ActiveField = "origin" | "destination";
+type MapMode = "2d" | "3d";
 type GpsStatus = "idle" | "requesting" | "tracking" | "error" | "unsupported";
 type LiveMapPosition = {
   point: Point;
@@ -312,6 +324,7 @@ export default function CondoMap() {
   const [route, setRoute] = useState<DeliveryRouteResult | null>(null);
   const [message, setMessage] = useState("Adicione um ou mais destinos para traçar a melhor rota.");
   const [viewBox, setViewBox] = useState<ViewBox>(INITIAL_VIEW);
+  const [mapMode, setMapMode] = useState<MapMode>("2d");
   const [gpsStatus, setGpsStatus] = useState<GpsStatus>("idle");
   const [gpsTrackingRequested, setGpsTrackingRequested] = useState(false);
   const [gpsError, setGpsError] = useState("");
@@ -1239,18 +1252,40 @@ export default function CondoMap() {
         <section className="map-card" aria-label="Mapa interativo do condomínio">
           <div className="map-toolbar">
             <div>
-              <strong>Mapa do condomínio</strong>
-              <span>316 casas • quadras A a L</span>
+              <strong>{mapMode === "2d" ? "Mapa do condomínio" : "Condomínio em 3D"}</strong>
+              <span>316 casas • quadras A a L • vista {mapMode === "2d" ? "técnica" : "interativa"}</span>
             </div>
-            <div className="map-actions" aria-label="Controles do mapa">
-              <button type="button" onClick={() => zoom(.78)} aria-label="Aumentar zoom">+</button>
-              <button type="button" onClick={() => zoom(1.28)} aria-label="Diminuir zoom">−</button>
-              {liveMapPosition && (
-                <button type="button" onClick={locateGpsOnMap} aria-label="Centralizar na minha localização">◎</button>
+            <div className="map-toolbar-controls">
+              <div className="map-view-switch" aria-label="Escolher visualização do mapa">
+                <button
+                  type="button"
+                  className={mapMode === "2d" ? "active" : ""}
+                  aria-pressed={mapMode === "2d"}
+                  onClick={() => setMapMode("2d")}
+                >
+                  2D
+                </button>
+                <button
+                  type="button"
+                  className={mapMode === "3d" ? "active" : ""}
+                  aria-pressed={mapMode === "3d"}
+                  onClick={() => setMapMode("3d")}
+                >
+                  3D
+                </button>
+              </div>
+              {mapMode === "2d" && (
+                <div className="map-actions" aria-label="Controles do mapa 2D">
+                  <button type="button" onClick={() => zoom(.78)} aria-label="Aumentar zoom">+</button>
+                  <button type="button" onClick={() => zoom(1.28)} aria-label="Diminuir zoom">−</button>
+                  {liveMapPosition && (
+                    <button type="button" onClick={locateGpsOnMap} aria-label="Centralizar na minha localização">◎</button>
+                  )}
+                  <button type="button" onClick={() => setViewBox(route ? fitPoints(route.points) : INITIAL_VIEW)}>
+                    {route ? "Rota" : "Tudo"}
+                  </button>
+                </div>
               )}
-              <button type="button" onClick={() => setViewBox(route ? fitPoints(route.points) : INITIAL_VIEW)}>
-                {route ? "Rota" : "Tudo"}
-              </button>
             </div>
           </div>
 
@@ -1259,10 +1294,11 @@ export default function CondoMap() {
               <i className={`dot ${gpsOriginEnabled ? "dot-gps" : `dot-${activeField}`}`} />
               {gpsOriginEnabled
                 ? "GPS acompanhando sua posição em X/Y"
-                : `Toque numa casa para ${activeField === "origin" ? "definir a partida" : "adicionar um destino"}`}
+                : `Toque numa casa${mapMode === "3d" ? " 3D" : ""} para ${activeField === "origin" ? "definir a partida" : "adicionar um destino"}`}
             </div>
 
-            <svg
+            {mapMode === "2d" ? (
+              <svg
               ref={svgRef}
               className="condo-map"
               viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
@@ -1273,7 +1309,7 @@ export default function CondoMap() {
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerEnd}
               onPointerCancel={handlePointerEnd}
-            >
+              >
               <g className="plan-artwork" aria-hidden="true">
                 <image
                   href="/planta-condominio.svg"
@@ -1370,7 +1406,16 @@ export default function CondoMap() {
                   </g>
                 ))}
               </g>
-            </svg>
+              </svg>
+            ) : (
+              <Condo3D
+                houses={houses}
+                selectedIds={Array.from(selectedIds).filter((id): id is string => Boolean(id))}
+                routeSegments={route?.legs.map((leg) => leg.points) ?? []}
+                livePoint={livePointIsVisible && liveMapPosition ? liveMapPosition.point : null}
+                onSelectHouse={(house) => chooseLocation(house)}
+              />
+            )}
           </div>
 
           <footer className="map-legend">
@@ -1378,7 +1423,7 @@ export default function CondoMap() {
             {liveMapPosition && <span><i className="legend-dot legend-gps" /> GPS ao vivo</span>}
             <span><i className="legend-dot legend-destination" /> Destinos numerados</span>
             <span><i className="legend-line" /> Melhor rota</span>
-            <small>Planta de referência • arraste ou use pinça para navegar</small>
+            <small>{mapMode === "2d" ? "Planta de referência" : "Representação 3D funcional"} • arraste ou use pinça para navegar</small>
           </footer>
         </section>
 
@@ -1435,4 +1480,3 @@ export default function CondoMap() {
     </main>
   );
 }
-

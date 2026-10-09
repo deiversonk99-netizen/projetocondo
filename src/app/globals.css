@@ -114,7 +114,7 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 .picker-input-row input::placeholder { color: #94a29d; font-weight: 600; }
 .picker-input-row input::-webkit-search-cancel-button { display: none; }
 .clear-field { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; margin: -5px -5px -5px 4px; border: 0; border-radius: 50%; background: transparent; color: #7f918a; font-size: 20px; line-height: 1; cursor: pointer; }
-.clear-field:focus-visible, .delivery-list button:focus-visible, .add-destination-button:focus-visible, .primary-button:focus-visible, .map-actions button:focus-visible, .welcome-close:focus-visible, .welcome-start:focus-visible, .gps-tracking-actions button:focus-visible, .gps-capture-button:focus-visible, .gps-finish-button:focus-visible, .gps-text-button:focus-visible, .gps-retry-button:focus-visible, .gps-coordinate-box button:focus-visible, .gps-live-coordinates button:focus-visible { outline: 3px solid rgba(29, 118, 87, .28); outline-offset: 2px; }
+.clear-field:focus-visible, .delivery-list button:focus-visible, .add-destination-button:focus-visible, .primary-button:focus-visible, .map-actions button:focus-visible, .map-view-switch button:focus-visible, .condo-3d-actions button:focus-visible, .welcome-close:focus-visible, .welcome-start:focus-visible, .gps-tracking-actions button:focus-visible, .gps-capture-button:focus-visible, .gps-finish-button:focus-visible, .gps-text-button:focus-visible, .gps-retry-button:focus-visible, .gps-coordinate-box button:focus-visible, .gps-live-coordinates button:focus-visible { outline: 3px solid rgba(29, 118, 87, .28); outline-offset: 2px; }
 .dot { display: inline-block; width: 9px; height: 9px; flex: 0 0 auto; border-radius: 50%; }
 .dot-origin { background: var(--green); }
 .dot-destination { background: var(--accent); }
@@ -175,6 +175,10 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 .map-toolbar > div:first-child { display: grid; gap: 3px; }
 .map-toolbar strong { font-size: 14px; }
 .map-toolbar span { color: var(--muted); font-size: 11px; }
+.map-toolbar-controls { display: flex; align-items: center; gap: 8px; }
+.map-view-switch { display: flex; padding: 3px; border: 1px solid var(--line); border-radius: 12px; background: #eef3ef; }
+.map-view-switch button { min-width: 38px; height: 32px; padding: 0 9px; border: 0; border-radius: 9px; background: transparent; color: var(--muted); font-size: 10px; font-weight: 900; cursor: pointer; }
+.map-view-switch button.active { background: var(--ink); color: white; box-shadow: 0 4px 12px rgba(21, 59, 51, .18); }
 .map-actions { display: flex; gap: 6px; }
 .map-actions button { min-width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 11px; background: white; font-weight: 900; cursor: pointer; }
 .map-actions button:last-child { padding-inline: 10px; color: var(--green); font-size: 11px; }
@@ -182,6 +186,26 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 .map-mode-pill { position: absolute; top: 12px; left: 12px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; max-width: calc(100% - 24px); padding: 8px 11px; border: 1px solid rgba(255, 255, 255, .88); border-radius: 999px; background: rgba(255, 253, 248, .93); color: var(--ink); font-size: 11px; font-weight: 800; box-shadow: 0 6px 18px rgba(21, 59, 51, .12); backdrop-filter: blur(8px); pointer-events: none; }
 .condo-map { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; user-select: none; }
 .condo-map:active { cursor: grabbing; }
+.condo-3d { position: absolute; inset: 0; overflow: hidden; background: #dce9df; }
+.condo-3d-canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+.condo-3d-canvas:active { cursor: grabbing; }
+.condo-3d-actions { position: absolute; top: 52px; right: 12px; z-index: 4; display: flex; max-width: calc(100% - 24px); flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.condo-3d-actions button { min-height: 36px; padding: 7px 10px; border: 1px solid rgba(255, 255, 255, .8); border-radius: 10px; background: rgba(255, 253, 248, .91); color: var(--ink); font-size: 10px; font-weight: 900; box-shadow: 0 6px 18px rgba(21, 59, 51, .12); backdrop-filter: blur(8px); cursor: pointer; }
+.condo-3d-actions button.active, .condo-3d-actions button[aria-pressed="true"] { border-color: rgba(255, 255, 255, .92); background: var(--green); color: white; }
+.condo-3d-room-list { position: absolute; right: 12px; bottom: 68px; left: 12px; z-index: 4; display: flex; gap: 6px; padding: 2px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; touch-action: pan-x; }
+.condo-3d-room-list::-webkit-scrollbar { display: none; }
+.condo-3d-room-list > span { display: grid; grid-template-columns: 8px auto; grid-template-rows: auto auto; column-gap: 6px; min-width: max-content; padding: 7px 9px; border: 1px solid rgba(255, 255, 255, .88); border-radius: 10px; background: rgba(255, 253, 248, .93); color: var(--ink); box-shadow: 0 5px 16px rgba(15, 45, 38, .13); backdrop-filter: blur(8px); }
+.condo-3d-room-list i { grid-row: 1 / 3; align-self: center; width: 8px; height: 24px; border-radius: 999px; }
+.condo-3d-room-list strong { font-size: 9px; line-height: 1.1; }
+.condo-3d-room-list small { color: var(--muted); font-size: 8px; line-height: 1.1; }
+.condo-3d-selection { position: absolute; right: 12px; bottom: 12px; left: 12px; z-index: 4; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 11px; border: 1px solid rgba(255, 255, 255, .78); border-radius: 12px; background: rgba(15, 45, 38, .83); color: white; box-shadow: 0 8px 24px rgba(8, 34, 28, .22); backdrop-filter: blur(9px); pointer-events: none; }
+.condo-3d-selection > div { display: grid; gap: 2px; min-width: 0; }
+.condo-3d-selection strong { overflow: hidden; color: white; font-size: 12px; font-weight: 900; text-overflow: ellipsis; white-space: nowrap; }
+.condo-3d-selection small { color: rgba(255, 255, 255, .72); font-size: 9px; }
+.condo-3d-selection > span { flex: 0 0 auto; color: rgba(255, 255, 255, .82); font-size: 9px; font-weight: 800; text-align: right; }
+.condo-3d-loading { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 12px; background: #e7efe8; color: var(--ink); }
+.condo-3d-loading span { width: 34px; height: 34px; border: 3px solid #bdd1c4; border-top-color: var(--green); border-radius: 50%; animation: condo-3d-loading .8s linear infinite; }
+.condo-3d-loading strong { font-size: 12px; }
 .plan-artwork { pointer-events: none; }
 .plan-artwork image { opacity: .84; }
 .plan-redaction { fill: white; }
@@ -243,10 +267,14 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
   75%, 100% { opacity: 0; transform: scale(1.45); }
 }
 
+@keyframes condo-3d-loading {
+  to { transform: rotate(360deg); }
+}
+
 @media (hover: hover) {
   .primary-button:hover { background: var(--accent-dark); transform: translateY(-1px); }
   .welcome-start:hover { background: var(--accent-dark); }
-  .clear-field:hover, .delivery-list button:hover, .map-actions button:hover, .welcome-close:hover { background: #f0f5f2; }
+  .clear-field:hover, .delivery-list button:hover, .map-actions button:hover, .condo-3d-actions button:hover, .welcome-close:hover { background: #f0f5f2; }
   .gps-tracking-actions button:hover, .gps-text-button:hover { border-color: var(--gps); background: var(--gps-soft); }
   .gps-capture-button:hover, .gps-finish-button:hover { background: #185fab; }
   .add-destination-button:not(:disabled):hover { border-color: var(--green); background: #e3f1e9; }
@@ -314,11 +342,18 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
   .status-message { margin-bottom: -2px; }
 
   .map-card { width: calc(100% + 20px); margin-left: -10px; border-right: 0; border-left: 0; border-radius: 0; box-shadow: 0 10px 28px rgba(21, 59, 51, .07); }
-  .map-toolbar { min-height: 60px; padding: 8px 10px 8px 13px; }
+  .map-toolbar { min-height: 60px; flex-wrap: wrap; padding: 8px 10px 8px 13px; }
+  .map-toolbar-controls { width: 100%; justify-content: space-between; }
+  .map-view-switch button { min-width: 43px; height: 38px; }
   .map-actions button { min-width: 44px; height: 44px; border-radius: 12px; font-size: 17px; }
   .map-actions button:last-child { padding-inline: 8px; font-size: 10px; }
   .map-viewport { height: clamp(430px, 62svh, 620px); min-height: 0; }
   .map-mode-pill { top: 9px; left: 9px; max-width: calc(100% - 18px); padding: 7px 10px; font-size: 10px; }
+  .condo-3d-actions { top: 48px; right: 9px; }
+  .condo-3d-actions button { min-height: 40px; padding-inline: 9px; }
+  .condo-3d-room-list { right: 9px; bottom: 70px; left: 9px; }
+  .condo-3d-selection { right: 9px; bottom: 9px; left: 9px; }
+  .condo-3d-selection > span { max-width: 42%; }
   .map-legend { min-height: 58px; padding: 9px 12px; gap: 8px 12px; }
   .map-legend small { font-size: 10px; }
 
@@ -339,6 +374,7 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
   .map-toolbar > div:first-child span { display: none; }
   .map-actions { gap: 4px; }
   .map-actions button { min-width: 42px; width: 42px; height: 42px; }
+  .map-view-switch button { min-width: 40px; padding-inline: 7px; }
   .map-viewport { height: 440px; }
   .map-legend { gap: 7px 10px; font-size: 10px; }
 }
@@ -346,4 +382,3 @@ h1 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; line
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
-

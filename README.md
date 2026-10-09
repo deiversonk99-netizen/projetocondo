@@ -19,6 +19,11 @@ O mapa foi criado para ficar disponível pela web, sem cadastro ou login. A loca
 - Otimização automática da ordem das paradas.
 - Instruções e distância de cada trecho pela sequência de ruas.
 - Zoom, movimentação e destaque visual da rota.
+- Alternância entre a planta 2D e uma visualização 3D leve do condomínio.
+- Casas 3D clicáveis, aproximação automática, rota sobre as ruas e modos dia/noite.
+- Modelo residencial único inspirado na Casa 2/4, com varanda, pilares, janelas, caminho de entrada e marcador de seleção, aplicado às 316 unidades nesta etapa.
+- Visualização interna simplificada da unidade selecionada, com abertura do telhado, dois quartos, banheiro, sala, cozinha e área de serviço.
+- Tour automático em 360° com interrupção por toque, além de legenda dos ambientes e áreas aproximadas da planta.
 - Layout responsivo para celular e computador.
 - Página estática, sem banco de dados, Google Maps ou API externa.
 
@@ -51,6 +56,7 @@ Não é necessário cadastrar variáveis de ambiente. A Vercel fornece `VERCEL_P
 - `src/lib/routing.ts`: encaixe dos pontos na rua, menor rota e otimização de múltiplas paradas.
 - `src/lib/gpsTracking.ts`: calibração, conversão GPS para X/Y e ajuste à malha de ruas.
 - `src/components/CondoMap.tsx`: busca, interação e SVG do mapa.
+- `src/components/Condo3D.tsx`: cena WebGL, casas instanciadas e interação do modo 3D.
 - `public/planta-condominio.svg`: planta vetorial otimizada para o mapa, sem vegetação, carimbos e marcações técnicas de acesso.
 - `scripts/optimize_floor_plan_svg.py`: reproduz a limpeza e a compactação do SVG original.
 
@@ -61,5 +67,5 @@ circulação, acessos permitidos e caminhos exclusivos para pedestres. A planta 
 visual e não substitui projeto arquitetônico ou levantamento topográfico. A distância exibida usa
 unidades visuais X/Y, não metros. Antes da publicação, confirme a autorização do titular dos direitos
 da planta para reprodução e disponibilização pública. O GPS pode apresentar variações, especialmente
-entre construções; confira a precisão mostrada na tela e mantenha a opção manual disponível.
-
+entre construções; confira a precisão mostrada na tela e mantenha a opção manual disponível. As casas
+3D são uma representação funcional estilizada e não devem ser usadas como modelo construtivo.
